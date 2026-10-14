@@ -6,5 +6,5 @@
 | SRS 1.1 з журналом змін | [SRS-1.1.md](SRS-1.1.md) |
 | План тестування | [test-plan.md](test-plan.md) |
 | Таблиця розподілу задач | [task-board.xlsx](task-board.xlsx) |
-| Протокол ретро | [retro-sprint2.md](retro-sprint2.md) |
+| Протокол ретро | [retro.md](retro.md) |
 | Індивідуальні аудити | [audit/](audit/) |
