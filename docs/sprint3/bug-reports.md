@@ -11,9 +11,9 @@
 | Продукт | restful-booker-platform, локальне розгортання за вказівкою викладача |
 | Адреса | http://localhost:3003 (гостьова частина), http://localhost:3003/admin (адмінпанель) |
 | Як запущено | `.\build_locally.cmd` у корені каталогу restful-booker-platform (код із ZIP-архіву гілки trunk) |
-| Коміт restful-booker-platform | КОМІТ |
-| Браузер | Chrome ВЕРСІЯ_CHROME |
-| ОС | Windows ВЕРСІЯ_WINDOWS |
+| Версія restful-booker-platform | ZIP-архів гілки trunk (без git-коміту), завантажено перед Run 1 |
+| Браузер | Google Chrome, поточна стабільна версія станом на 25–28.10.2026 |
+| ОС | Windows 11 |
 | Обліковий запис адміністратора | admin / password |
 
 ## Зведення
@@ -36,7 +36,7 @@
 
 **Title:** Сесія адміністратора не завершується після 30 хвилин неактивності
 
-**Bug ID:** BUG-001 **Reporter:** Дятлов М. **Date:** 25.10.2026 **Reviewer:** — **Status:** New
+**Bug ID:** BUG-001 **Reporter:** Дятлов М. **Date:** 25.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** New
 **Severity:** Major **Priority:** P3
 **Linked:** test case TC-050; requirement S-20, F-130
 
@@ -62,7 +62,7 @@ Severity Major (4.12): вимога безпеки не виконується �
 Див. «Середовище»; Chrome, звичайне вікно (не інкогніто); обліковий запис admin, роль адміністратор; 25.10.2026, 15:09–15:41.
 
 ### Attachments
-[BUG-001-1.png](attachments/BUG-001-1.png) — адмінпанель /admin/rooms зі списком номерів 101–103 і кнопкою «Logout» після 31 хвилини неактивності (крок 6).
+[BUG-001-1.png](attachments/BUG-001-1.png) — розділ номерів адмінпанелі /admin/rooms (список 101–103, кнопка «Logout»), знімок від 28.10.2026, 15:02. Ілюструє, який екран лишається відкритим замість сторінки входу; сам факт 31 хвилини неактивності (25.10.2026, 15:09–15:41) зафіксовано в журналі виконання (TC-050).
 
 ---
 
@@ -70,7 +70,7 @@ Severity Major (4.12): вимога безпеки не виконується �
 
 **Title:** Розділ «Report» не дає вибрати період і не позначає майбутній період «Прогноз»
 
-**Bug ID:** BUG-002 **Reporter:** Дятлов М. **Date:** 25.10.2026 **Reviewer:** — **Status:** New
+**Bug ID:** BUG-002 **Reporter:** Дятлов М. **Date:** 25.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** New
 **Severity:** Normal **Priority:** P3
 **Linked:** test case TC-048; requirement F-120
 
@@ -84,18 +84,19 @@ Severity Normal (4.12): адмінпанеллю користуватися мо
 3. У поле Password ввести «password».
 4. Натиснути «Login».
 5. Натиснути «Report» у меню адмінпанелі.
+6. Виділити на календарі діапазон дат 02.10.2026–31.10.2026.
 
 ### Actual result
-Після кроку 5 показано календар бронювань за поточний місяць із кнопками перемикання місяців. Поля вибору періоду (дата початку і кінця) немає; значення заповнюваності (частки зайнятих ночей) немає; позначки «Прогноз» для майбутніх дат немає.
+Після кроку 5 показано календар бронювань із перемиканням місяців; поля вибору періоду, значення заповнюваності (частки зайнятих ночей) і позначки «Прогноз» немає. Після кроку 6 замість звіту відкривається форма створення бронювання: поля Firstname, Lastname, Room («Select room»), Deposit paid? (false), Checkin: 2026-10-02, Checkout: 2026-10-31, кнопки «Book» і «Cancel».
 
 ### Expected result
-Після кроку 5 можна вибрати період; для минулого періоду показано заповнюваність за фактичними заселеннями і виселеннями, для майбутнього — за підтвердженими бронюваннями з позначкою «Прогноз» (F-120).
+Після кроків 5–6 для вибраного періоду показано звіт заповнюваності: для минулого періоду показано заповнюваність за фактичними заселеннями і виселеннями, для майбутнього — за підтвердженими бронюваннями з позначкою «Прогноз» (F-120).
 
 ### Environment
 Див. «Середовище»; Chrome, інкогніто; обліковий запис admin, роль адміністратор; 25.10.2026.
 
 ### Attachments
-[BUG-002-1.png](attachments/BUG-002-1.png) — сторінка «Report» після кроку 5: календар без вибору періоду, показника заповнюваності і позначки «Прогноз».
+[BUG-002-1.png](attachments/BUG-002-1.png) — сторінка «Report» після кроку 6: форма створення бронювання (Firstname, Lastname, Room, Deposit paid?, Checkin 2026-10-02, Checkout 2026-10-31, «Book», «Cancel») замість звіту заповнюваності.
 
 ---
 
@@ -103,7 +104,7 @@ Severity Normal (4.12): адмінпанеллю користуватися мо
 
 **Title:** Форма бронювання: при порожньому Lastname помилка «size must be between 3 and 30» не називає поле
 
-**Bug ID:** BUG-003 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** — **Status:** New
+**Bug ID:** BUG-003 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** New
 **Severity:** Minor **Priority:** P3
 **Linked:** test case TC-019; requirement GUI-60
 
@@ -138,7 +139,7 @@ Severity Minor (4.12): проблема інтерфейсу — бронюва�
 
 **Title:** Форма бронювання: при порожньому Email помилка «must not be empty» не називає поле
 
-**Bug ID:** BUG-004 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** — **Status:** New
+**Bug ID:** BUG-004 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** New
 **Severity:** Minor **Priority:** P3
 **Linked:** test case TC-019; requirement GUI-60
 
@@ -173,7 +174,7 @@ Severity Minor (4.12): проблема інтерфейсу, бронюванн
 
 **Title:** Форма бронювання: при порожньому Phone помилки «must not be empty» і «size must be between 11 and 21» не називають поле
 
-**Bug ID:** BUG-005 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** — **Status:** New
+**Bug ID:** BUG-005 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** New
 **Severity:** Minor **Priority:** P3
 **Linked:** test case TC-019; requirement GUI-60
 
@@ -208,7 +209,7 @@ Severity Minor (4.12): проблема інтерфейсу, бронюванн
 
 **Title:** Форма бронювання: при порожньому Firstname друга помилка «size must be between 3 and 18» не називає поле
 
-**Bug ID:** BUG-006 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** — **Status:** New
+**Bug ID:** BUG-006 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** New
 **Severity:** Minor **Priority:** P3
 **Linked:** test case TC-019; requirement GUI-60
 
@@ -243,7 +244,7 @@ Severity Minor (4.12): проблема інтерфейсу, бронюванн
 
 **Title:** Форма бронювання: при Email без «@» помилка «must be a well-formed email address» не називає поле
 
-**Bug ID:** BUG-007 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** — **Status:** New
+**Bug ID:** BUG-007 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** New
 **Severity:** Minor **Priority:** P3
 **Linked:** test case TC-020; requirement GUI-60, F-60
 
@@ -274,4 +275,4 @@ Severity Minor (4.12): проблема інтерфейсу; з контекс�
 Див. «Середовище»; Chrome, інкогніто; без входу (гість); 28.10.2026.
 
 ### Attachments
-[BUG-007-1.png](attachments/BUG-007-1.png) — форма бронювання після кроку 11 із даними T3-Guest / Tester / t3.guest.example.com / +380001234567 і повідомленням «must be a well-formed email address».
+[BUG-007-1.png](attachments/BUG-007-1.png) — форма бронювання після натискання «Reserve Now» з Email без «@» і повідомленням «must be a well-formed email address». Знімок зроблено з іншими довільними даними (Email «sadfvrrrtsdsdfr.com»); повідомлення від даних не залежить і збігається з отриманим за кроками 1–11.

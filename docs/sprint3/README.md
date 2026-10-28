@@ -8,7 +8,7 @@
 |---|---|---|
 | Тест-кейси, покриття, тестові дані, рецензування | [test-cases.xlsx](test-cases.xlsx) | Андрущенко К. (ТА), рецензент Мукоїд Е. |
 | Журнал виконання | [execution-log.xlsx](execution-log.xlsx) | Дятлов М. (ІТ) |
-| Реєстр дефектів | [bug-reports.md](bug-reports.md) (замість GitHub Issues, методичка розд. 8) | Дятлов М. (ІТ) |
+| Реєстр дефектів (трекер) | [bug-reports.md](bug-reports.md) — 7 звітів за шаблоном 4.11 з позначкою Reviewer (замість GitHub Issues, розд. 8 методички) | Дятлов М. (ІТ), рецензент Мукоїд Е. |
 | Вкладення до звітів | [attachments/](attachments/) | Дятлов М. (ІТ) |
 | Таблиця розподілу задач | [task-board.xlsx](task-board.xlsx) | Мукоїд Е. (КТ+СМ) |
 | Протокол ретро | [retro.md](retro.md) | Мукоїд Е. (КТ+СМ) |
@@ -27,14 +27,16 @@
 |---|---|
 | Тест-кейсів усього (норматив ≥15) | 55 (позитивних 42, негативних 13) |
 | Відрецензовано кейсів | 55 / 55 |
-| passed / failed / blocked / skipped (Run 1) | 50 / 4 / 1 / 0 |
-| Звітів про дефекти (норматив ≥6) | 7 (BUG-001 … BUG-007) |
-| Дефекти за severity (Blocker / Critical / Major / Normal / Minor / Trivial) | 0 / 0 / 1 / 1 / 5 / 0 |
+| passed / failed / blocked / skipped (Run 1) | 50 / 4 / 1 / 0 (failed: TC-019, TC-020, TC-048, TC-050; blocked: TC-042) |
+| Звітів про дефекти (норматив ≥6) | 7 (BUG-001…BUG-007), відрецензовано 7 / 7 |
+| Дефекти за severity (Blocker / Critical / Major / Normal / Minor / Trivial) | 0 / 0 / 1 / 1 / 5 / 0 — три різні рівні |
 | Дефекти за priority (P1 / P2 / P3) | 0 / 0 / 7 |
 
 ## Середовище виконання (Run 1)
 
-Виконано на localhost замість demo з передумов кейсів: restful-booker-platform, локальне розгортання за вказівкою викладача. Адреса, коміт, версії браузерів і ОС — на аркуші «Environment» у [execution-log.xlsx](execution-log.xlsx). Версія кейсів — коміт `6cc8f78`. Кейс TC-042 (S-10, HTTPS) має статус blocked: локально немає HTTPS; Issue не заводиться.
+Виконано на localhost замість demo з передумов кейсів: restful-booker-platform, локальне розгортання за вказівкою викладача. Адреса (http://localhost:3003), спосіб запуску (`build_locally.cmd`, ZIP гілки trunk), браузери і ОС — на аркуші «Environment» у [execution-log.xlsx](execution-log.xlsx). Версія кейсів — коміт `6cc8f78`. Кейс TC-042 (S-10, HTTPS) має статус blocked: локально немає HTTPS; звіт не заводиться.
+
+Спостереження поза Run 1: на публічному demo https://automationintesting.online сторінка номера /reservation/{id} 28.10.2026 не завантажувалась (нескінченний індикатор), тоді як на localhost працює. Це ілюструє, що результати прогону дійсні для конкретного середовища.
 
 ## Покриття вимог SRS 1.1
 
