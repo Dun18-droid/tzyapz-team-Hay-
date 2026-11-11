@@ -1,0 +1,190 @@
+{
+  "id": "afb6ba9a-1404-4a0b-bcfb-ae10dcb4a8c1",
+  "version": "2.0",
+  "name": "staynow",
+  "url": "https://automationintesting.online",
+  "tests": [{
+    "id": "4f83e93b-0568-44f9-a04b-ae5e15167633",
+    "name": "TC-021 contact form valid message.",
+    "commands": [{
+      "id": "4aca6aaf-4e1a-434e-b0af-b89265b5a822",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1dc4af1c-ac2e-49ee-baf8-e4c32905c416",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1550x830",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "05c17fde-fb5d-4af6-878e-854755e3cda9",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=name",
+      "targets": [],
+      "value": "15000"
+    }, {
+      "id": "80cfbf78-95d6-4643-a0e7-2c2d87253802",
+      "comment": "",
+      "command": "executeScript",
+      "target": "var i=document.getElementById('name'); Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value').set.call(i,'T3-Guest'); i.dispatchEvent(new Event('input',{bubbles:true}));",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3a2be02b-d1c9-437c-9f44-9b1422c28c26",
+      "comment": "",
+      "command": "executeScript",
+      "target": "var i=document.getElementById('name'); Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value').set.call(i,'T3-Guest'); i.dispatchEvent(new Event('input',{bubbles:true}));",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8b638d67-6180-44a5-b427-2313eb601bd0",
+      "comment": "",
+      "command": "executeScript",
+      "target": "var i=document.getElementById('name'); Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value').set.call(i,'T3-Guest'); i.dispatchEvent(new Event('input',{bubbles:true}));",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d959b13f-6f0f-42af-ad78-d3395acdbbde",
+      "comment": "",
+      "command": "click",
+      "target": "css=.justify-content-center",
+      "targets": [
+        ["css=.justify-content-center", "css:finder"],
+        ["xpath=//section[@id='contact']/div/div", "xpath:idRelative"],
+        ["xpath=//section[3]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b9de77c7-e05f-400c-80b4-14de9cf364ce",
+      "comment": "",
+      "command": "executeScript",
+      "target": "var i=document.getElementById('email'); Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value').set.call(i,'t3.guest@example.com'); i.dispatchEvent(new Event('input',{bubbles:true}));",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c813ea01-1698-4845-b264-ef515f0a6a6b",
+      "comment": "",
+      "command": "executeScript",
+      "target": "var i=document.getElementById('email'); Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value').set.call(i,'t3.guest@example.com'); i.dispatchEvent(new Event('input',{bubbles:true}));",
+      "targets": [],
+      "value": "t3.guest@example.com"
+    }, {
+      "id": "5d2361ed-fc05-4046-a8e5-b10254346dfe",
+      "comment": "",
+      "command": "click",
+      "target": "css=.justify-content-center",
+      "targets": [
+        ["css=.justify-content-center", "css:finder"],
+        ["xpath=//section[@id='contact']/div/div", "xpath:idRelative"],
+        ["xpath=//section[3]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "29a2fe60-0e15-4930-ab10-2e98c005b88a",
+      "comment": "",
+      "command": "executeScript",
+      "target": "var i=document.getElementById('phone'); Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value').set.call(i,'+380001234567'); i.dispatchEvent(new Event('input',{bubbles:true}));",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3fdbbb2c-a02a-45aa-85d3-7fd564e25f4f",
+      "comment": "",
+      "command": "executeScript",
+      "target": "var i=document.getElementById('phone'); Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value').set.call(i,'+380001234567'); i.dispatchEvent(new Event('input',{bubbles:true}));",
+      "targets": [],
+      "value": "+380001234567"
+    }, {
+      "id": "88b51d1c-33aa-4755-98d6-2bef70555605",
+      "comment": "",
+      "command": "click",
+      "target": "css=.justify-content-center",
+      "targets": [
+        ["css=.justify-content-center", "css:finder"],
+        ["xpath=//section[@id='contact']/div/div", "xpath:idRelative"],
+        ["xpath=//section[3]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f0281507-2325-4328-b2e7-9daa139c3c3e",
+      "comment": "",
+      "command": "executeScript",
+      "target": "var i=document.getElementById('subject'); Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value').set.call(i,'T3-Booking question'); i.dispatchEvent(new Event('input',{bubbles:true}));",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "93140e57-ec29-4b51-9001-110525aab740",
+      "comment": "",
+      "command": "executeScript",
+      "target": "var i=document.getElementById('subject'); Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value').set.call(i,'T3-Booking question'); i.dispatchEvent(new Event('input',{bubbles:true}));",
+      "targets": [],
+      "value": "T3-Booking question"
+    }, {
+      "id": "3c6bfec2-7b8d-47ff-8729-923f14aa43d4",
+      "comment": "",
+      "command": "click",
+      "target": "css=.justify-content-center",
+      "targets": [
+        ["css=.justify-content-center", "css:finder"],
+        ["xpath=//section[@id='contact']/div/div", "xpath:idRelative"],
+        ["xpath=//section[3]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "85f3b5df-cbaf-4c1a-89fc-47a073d3a66f",
+      "comment": "",
+      "command": "click",
+      "target": "id=description",
+      "targets": [
+        ["id=description", "id"],
+        ["css=#description", "css:finder"],
+        ["xpath=//textarea[@id='description']", "xpath:attributes"],
+        ["xpath=//section[@id='contact']/div/div/div/div/div/form/div[5]/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "566cc7be-ff14-487c-ac13-1b6451465f03",
+      "comment": "",
+      "command": "executeScript",
+      "target": "var i=document.getElementById('description'); Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype,'value').set.call(i,'T3 test message about booking dates'); i.dispatchEvent(new Event('input',{bubbles:true}));",
+      "targets": [],
+      "value": "T3 test message about booking dates"
+    }, {
+      "id": "9fc435eb-e9ea-47e9-a7e2-fb2ae7fa5a98",
+      "comment": "",
+      "command": "click",
+      "target": "css=#contact button.btn-primary",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "81bde67e-18d5-48e8-a61c-c1228ef705a8",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=#contact h3",
+      "targets": [],
+      "value": "15000"
+    }, {
+      "id": "ef0e00c5-6247-436f-80d2-c62c26837656",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=#contact h3",
+      "targets": [],
+      "value": "Thanks for getting in touch T3-Guest!"
+    }]
+  }],
+  "suites": [{
+    "id": "35b4fd66-51a0-4eba-a5a4-1684a2fa85b3",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["4f83e93b-0568-44f9-a04b-ae5e15167633"]
+  }],
+  "urls": ["https://automationintesting.online/"],
+  "plugins": []
+}
