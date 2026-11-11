@@ -8,7 +8,7 @@
 |---|---|---|---|---|---|---|
 | [BUG-008](#bug-008) | BookingValidator.validate відхиляє бронювання рівно на 30 ночей | Normal | P3 | BL-10 | `BookingValidatorTest.nightsOutsideOneToThirtyAreRejected` | New |
 | [BUG-009](#bug-009) | BookingValidator.validate приймає дату заїзду, ранішу за today | Major | P3 | BL-10 | `BookingValidatorTest.checkInBeforeTodayIsRejected` | New |
-| [BUG-010](#bug-010) | PriceCalculator.isWeekendNight вважає вихідними суботу й неділю замість п'ятниці й суботи | Major | P2 | BL-30 | `PriceCalculatorTest.weekendNightIsFridayAndSaturday`, `nightPriceFormula`, `totalSumsNightsAcrossSeasonBoundary`, `longStayDiscountStartsAtSevenNights` | New |
+| [BUG-010](#bug-010) | PriceCalculator.isWeekendNight вважає вихідними суботу й неділю замість п'ятниці й суботи | Major | P3 | BL-30 | `PriceCalculatorTest.weekendNightIsFridayAndSaturday`, `nightPriceFormula`, `totalSumsNightsAcrossSeasonBoundary`, `longStayDiscountStartsAtSevenNights` | New |
 | [BUG-011](#bug-011) | PriceCalculator.nightPrice округлює вниз (DOWN) замість HALF_UP | Minor | P3 | BL-50 | `PriceCalculatorTest.nightPriceIsRoundedHalfUp` | New |
 
 ---
@@ -78,12 +78,12 @@ Severity Major (4.12): система приймає некоректне бро
 **Title:** PriceCalculator.isWeekendNight вважає вихідними суботу й неділю замість п'ятниці й суботи (зсув на день)
 
 **Bug ID:** BUG-010 **Мітка:** module **Reporter:** Андрущенко К. **Date:** 10.11.2026 **Reviewer:** — **Status:** New
-**Severity:** Major **Priority:** P2
+**Severity:** Major **Priority:** P3
 **Linked:** requirement BL-30; tests `PriceCalculatorTest.weekendNightIsFridayAndSaturday` (набори [2] «2026-11-13, true», [4] «2026-11-15, false»), `nightPriceFormula` (набір [2]), `totalSumsNightsAcrossSeasonBoundary`, `longStayDiscountStartsAtSevenNights` (частина «6 ночей»)
 
 ### Description
-BL-10 (SRS 1.1, п. BL-30) і javadoc класу визначають «вихідну ніч» як ніч з п'ятниці на суботу або з суботи на неділю, тобто вихідними мають вважатись ночі, що **починаються** в п'ятницю і в суботу. Метод `isWeekendNight` натомість перевіряє `SATURDAY`/`SUNDAY` — класичний зсув визначення на один день: п'ятниця хибно вважається буднем, а неділя — вихідною.
-Severity Major (4.12): помилка в ключовій формулі ціноутворення, що каскадно впливає на `nightPrice()` і `total()` — усі п'ятничні ночі недорахунковуються (без надбавки 15 %), усі недільні — перерахунковуються. Priority P2 (4.13): дефект фіксується одразу чотирма тестами й блокує коректну перевірку інших правил ціноутворення (сум за інтервал, межі знижки).
+BL-30 (SRS 1.1) і javadoc класу визначають «вихідну ніч» як ніч з п'ятниці на суботу або з суботи на неділю, тобто вихідними мають вважатись ночі, що **починаються** в п'ятницю і в суботу. Метод `isWeekendNight` натомість перевіряє `SATURDAY`/`SUNDAY` — класичний зсув визначення на один день: п'ятниця хибно вважається буднем, а неділя — вихідною.
+Severity Major (4.12): помилка в ключовій формулі ціноутворення, що каскадно впливає на `nightPrice()` і `total()` — усі п'ятничні ночі недорахунковуються (без надбавки 15 %), усі недільні — перерахунковуються. Priority P3 (4.13): дефект фіксується одразу чотирма тестами, але жодного іншого тесту в наборі не блокує — кожен тест перевіряє незалежний набір значень і виконується самостійно.
 
 ### Steps to reproduce
 1. Модуль `staynow` v1; створити `PriceCalculator calc = new PriceCalculator();`.
