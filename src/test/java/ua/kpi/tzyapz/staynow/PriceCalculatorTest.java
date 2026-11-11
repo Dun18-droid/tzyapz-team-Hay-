@@ -64,7 +64,7 @@ class PriceCalculatorTest {
 
     // ---------- BL-50 ----------
 
-    // BUG-011 (module): nightPrice не враховує 15% надбавку за вихідні (наприклад, 2026-09-18 п'ятниця повертає 100.00 замість 115.00)
+    // BUG-010 (module): п'ятниця 2026-09-18 обчислюється без вихідної надбавки 1.15 (повертає 100.00 замість 115.00)
     @ParameterizedTest(name = "тариф 100, ніч {0} → {1}")
     @DisplayName("BL-50: вартість ночі = тариф × сезон × 1,15 для вихідної")
     @CsvSource({
@@ -77,7 +77,7 @@ class PriceCalculatorTest {
         assertEquals(expected, calc.nightPrice(new BigDecimal("100"), night), "nightPrice(100, " + night + ")");
     }
 
-    // BUG-011 (module): помилка округлення вартісно-сезонних націнок для ночей у п'ятницю
+    // BUG-010, BUG-011 (module): помилка через відсутність вихідної надбавки для п'ятниці та невірно розрахованого сезонно-вартісного округлення
     @Test
     @DisplayName("BL-50: округлення HALF_UP до 2 знаків")
     void nightPriceIsRoundedHalfUp() {
@@ -90,7 +90,7 @@ class PriceCalculatorTest {
                         calc.nightPrice(new BigDecimal("33.33"), LocalDate.of(2026, 6, 5))));
     }
 
-    // BUG-012 (module): знижка за тривале проживання починається з 6 ночей замість 7 (повертає 615.00 замість 630.00)
+    // BUG-010 (module): 6 ночей дають 615.00 замість 630.00 через те, що п'ятниця порахована як 100, а неділя — як 115
     @Test
     @DisplayName("BL-50: знижка 10 % починається з 7 ночей (межа 6 / 7)")
     void longStayDiscountStartsAtSevenNights() {
@@ -103,7 +103,7 @@ class PriceCalculatorTest {
                 () -> assertEquals(new BigDecimal("657.00"), calc.total(rate, checkIn, LocalDate.of(2026, 9, 21)), "7 ночей"));
     }
 
-    // BUG-011 (module): невірний підсумок через неправильний розрахунок суботньої/п'ятничної ночі на межі сезону
+    // BUG-010 (module): неділя 2026-05-31 помилково порахована як вихідна ніч (+15%)
     @Test
     @DisplayName("BL-50: сума ночей через межу сезону — кожна ніч за власним коефіцієнтом")
     void totalSumsNightsAcrossSeasonBoundary() {
