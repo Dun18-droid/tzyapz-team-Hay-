@@ -23,8 +23,9 @@ class AdminLoginTest extends BaseUiTest {
     private static final By ROOMS_LINK = By.cssSelector("a[href='/admin/rooms']");
     private static final By LOGOUT = By.xpath("//button[text()='Logout']");
 
+    // BUG-013 (demo): F-85 Logout перенаправляє на головну сторінку замість повернення на форму входу /admin
     @Test
-    @DisplayName("TC-036 / F-80, F-85: вхід admin / password відкриває розділ номерів, Logout веде на головну сторінку")
+    @DisplayName("TC-036 / F-80, F-85: вхід admin / password відкриває розділ номерів, Logout повертає на форму входу")
     void validLoginOpensRooms() {
         driver.get(BASE_URL + "admin");
         waitVisible(USERNAME);
@@ -44,10 +45,10 @@ class AdminLoginTest extends BaseUiTest {
                 () -> assertTrue(roomsLinkVisible, "Посилання Rooms має бути видимим"),
                 () -> assertTrue(room101Listed, "У таблиці номерів має бути номер 101"));
 
-        // жорстка перевірка (F-85): Logout веде на головну сторінку сайту
+        // жорстка перевірка (F-85 SRS 1.1): Після Logout має знову з'явитися форма входу (поле username)
         driver.findElement(LOGOUT).click();
-        boolean onHomepage = eventually(d -> BASE_URL.equals(d.getCurrentUrl()));
-        assertTrue(onHomepage, "Після Logout має відкритися головна сторінка (F-85); поточний URL: " + driver.getCurrentUrl());
+        boolean usernameVisible = eventually(d -> !d.findElements(USERNAME).isEmpty() && d.findElement(USERNAME).isDisplayed());
+        assertTrue(usernameVisible, "Після Logout має знову з'явитися форма входу з полем username (F-85)");
     }
 
     @Test

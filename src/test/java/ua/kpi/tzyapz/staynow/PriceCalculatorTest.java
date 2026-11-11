@@ -30,6 +30,7 @@ class PriceCalculatorTest {
 
     // ---------- BL-30 ----------
 
+    // BUG-010 (module): isWeekendNight рахує вихідними суботу та неділю замість п'ятниці та суботи
     @ParameterizedTest(name = "{0} → вихідна ніч: {1}")
     @DisplayName("BL-30: вихідні ночі — п'ятниця і субота (межі тижня з обох боків)")
     @CsvSource({
@@ -63,6 +64,7 @@ class PriceCalculatorTest {
 
     // ---------- BL-50 ----------
 
+    // BUG-011 (module): nightPrice не враховує 15% надбавку за вихідні (наприклад, 2026-09-18 п'ятниця повертає 100.00 замість 115.00)
     @ParameterizedTest(name = "тариф 100, ніч {0} → {1}")
     @DisplayName("BL-50: вартість ночі = тариф × сезон × 1,15 для вихідної")
     @CsvSource({
@@ -75,6 +77,7 @@ class PriceCalculatorTest {
         assertEquals(expected, calc.nightPrice(new BigDecimal("100"), night), "nightPrice(100, " + night + ")");
     }
 
+    // BUG-011 (module): помилка округлення вартісно-сезонних націнок для ночей у п'ятницю
     @Test
     @DisplayName("BL-50: округлення HALF_UP до 2 знаків")
     void nightPriceIsRoundedHalfUp() {
@@ -87,6 +90,7 @@ class PriceCalculatorTest {
                         calc.nightPrice(new BigDecimal("33.33"), LocalDate.of(2026, 6, 5))));
     }
 
+    // BUG-012 (module): знижка за тривале проживання починається з 6 ночей замість 7 (повертає 615.00 замість 630.00)
     @Test
     @DisplayName("BL-50: знижка 10 % починається з 7 ночей (межа 6 / 7)")
     void longStayDiscountStartsAtSevenNights() {
@@ -99,6 +103,7 @@ class PriceCalculatorTest {
                 () -> assertEquals(new BigDecimal("657.00"), calc.total(rate, checkIn, LocalDate.of(2026, 9, 21)), "7 ночей"));
     }
 
+    // BUG-011 (module): невірний підсумок через неправильний розрахунок суботньої/п'ятничної ночі на межі сезону
     @Test
     @DisplayName("BL-50: сума ночей через межу сезону — кожна ніч за власним коефіцієнтом")
     void totalSumsNightsAcrossSeasonBoundary() {
