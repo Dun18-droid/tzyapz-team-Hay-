@@ -77,7 +77,7 @@ Severity Major (4.12): система приймає некоректне бро
 
 **Title:** PriceCalculator.isWeekendNight вважає вихідними суботу й неділю замість п'ятниці й суботи (зсув на день)
 
-**Bug ID:** BUG-010 **Мітка:** module **Reporter:** Андрущенко К. **Date:** 10.11.2026 **Reviewer:** — **Status:** New
+**Bug ID:** BUG-010 **Мітка:** module **Reporter:** Андрущенко К. **Date:** 10.11.2026 **Reviewer:** Мукоїд Е., 11.11.2026 **Status:** New
 **Severity:** Major **Priority:** P3
 **Linked:** requirement BL-30; tests `PriceCalculatorTest.weekendNightIsFridayAndSaturday` (набори [2] «2026-11-13, true», [4] «2026-11-15, false»), `nightPriceFormula` (набір [2]), `totalSumsNightsAcrossSeasonBoundary`, `longStayDiscountStartsAtSevenNights` (частина «6 ночей»)
 
@@ -113,7 +113,7 @@ Severity Major (4.12): помилка в ключовій формулі цін�
 
 **Title:** PriceCalculator.nightPrice округлює вартість ночі вниз (DOWN) замість HALF_UP
 
-**Bug ID:** BUG-011 **Мітка:** module **Reporter:** Андрущенко К. **Date:** 10.11.2026 **Reviewer:** — **Status:** New
+**Bug ID:** BUG-011 **Мітка:** module **Reporter:** Андрущенко К. **Date:** 10.11.2026 **Reviewer:** Мукоїд Е., 11.11.2026 **Status:** New
 **Severity:** Minor **Priority:** P3
 **Linked:** requirement BL-50; test `PriceCalculatorTest.nightPriceIsRoundedHalfUp`
 

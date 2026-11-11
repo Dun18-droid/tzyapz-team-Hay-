@@ -4,11 +4,11 @@
 
 ## Розподіл і рецензування
 
-| Тест-клас | Вимоги | Автор | Рецензент | Тест-методів |
-|---|---|---|---|---|
-| `BookingValidatorTest` | BL-10, BL-20 | Мукоїд Е. | Дятлов М. | 5★ + 2 |
-| `PriceCalculatorTest` | BL-30, BL-40, BL-50 | Андрущенко К. | Мукоїд Е. | 5★ + 2 |
-| `AvailabilityTest` | BL-60, BL-70 | Дятлов М. | Андрущенко К. | 4★ + 3 |
+| Тест-клас | Вимоги | Автор | Рецензент | Тест-методів | Code review (чек-лист 5.3) |
+|---|---|---|---|---|---|
+| `BookingValidatorTest` | BL-10, BL-20 | Мукоїд Е. | Дятлов М. | 5★ + 2 | очікує |
+| `PriceCalculatorTest` | BL-30, BL-40, BL-50 | Андрущенко К. | Мукоїд Е. | 5★ + 2 | reviewed: Мукоїд Е., 11.11.2026 (PR #15, 3 раунди) |
+| `AvailabilityTest` | BL-60, BL-70 | Дятлов М. | Андрущенко К. | 4★ + 3 | очікує |
 | **Разом** | 7 вимог | 3 автори | перехресно | **14★ + 7** (норматив ≥12, ≥3 на особу) |
 
 ★ — обов'язковий тест. Колонка «Статус» у таблицях нижче заповнюється після першого запуску: `passed` / `failed → BUG-0NN` (дефект модуля) / `reviewed` (позначка рецензента з датою).
@@ -39,17 +39,17 @@
 | Правило | Метод тесту | Вхід → очікування | Тип | Статус |
 |---|---|---|---|---|
 | Ночей 1..30 включно | ★ `nightsOutsideOneToThirtyAreRejected` (`@ParameterizedTest`) | checkIn 2026-11-20; ночей **1** → без `NIGHTS_OUT_OF_RANGE`; **30** → без; **31** → є `NIGHTS_OUT_OF_RANGE` | межа обидва боки | failed → BUG-008 |
-| Виїзд пізніше заїзду | `checkOutNotAfterCheckInIsRejected` (`@ParameterizedTest`) | checkOut = checkIn → є `CHECK_OUT_NOT_AFTER_CHECK_IN`; checkOut = checkIn − 1 → є; checkOut = checkIn + 1 → немає | межа | |
+| Виїзд пізніше заїзду | `checkOutNotAfterCheckInIsRejected` (`@ParameterizedTest`) | checkOut = checkIn → є `CHECK_OUT_NOT_AFTER_CHECK_IN`; checkOut = checkIn − 1 → є; checkOut = checkIn + 1 → немає | межа | passed |
 | Заїзд не раніше today | ★ `checkInBeforeTodayIsRejected` (`@ParameterizedTest`) | checkIn **2026-11-09** (today − 1) → є `CHECK_IN_IN_PAST`; **2026-11-10** (= today) → немає; **2026-11-11** → немає | межа обидва боки | failed → BUG-009 |
-| Гостей 1..capacity | ★ `guestsOutsideOneToCapacityAreRejected` (`@ParameterizedTest`) | guests **0** → є `GUESTS_OUT_OF_RANGE`; **1** → немає; **2** (= capacity) → немає; **3** → є | межа обидва боки | |
+| Гостей 1..capacity | ★ `guestsOutsideOneToCapacityAreRejected` (`@ParameterizedTest`) | guests **0** → є `GUESTS_OUT_OF_RANGE`; **1** → немає; **2** (= capacity) → немає; **3** → є | межа обидва боки | passed |
 
 ## BL-20 — email і телефон · `BookingValidatorTest` · автор Мукоїд Е.
 
 | Правило | Метод тесту | Вхід → очікування | Тип | Статус |
 |---|---|---|---|---|
-| Email «локальна@домен.зона» | ★ `emailFormat` (`@ParameterizedTest` з `@CsvSource`) | `guest@example.com` → true; `guestexample.com` → false; `guest@example` → false; `@example.com` → false; `guest@.com` → false | нормальний + заборонені | |
-| Телефон «+380» + рівно 9 цифр | ★ `phoneFormat` (`@ParameterizedTest` з `@CsvSource`) | `+380501234567` (9) → true; `+38050123456` (8) → false; `+3805012345678` (10) → false; `380501234567` (без +) → false; `+381501234567` → false; `+38050123456a` → false | межа 8/9/10 цифр + формат | |
-| `validate(…, email, phone)` додає коди | `invalidContactsAddEmailAndPhoneCodes` (`assertAll`) | коректні дати й гості, email `guestexample.com`, phone `+38050123456` → список містить `INVALID_EMAIL` **і** `INVALID_PHONE` | м'яка перевірка | |
+| Email «локальна@домен.зона» | ★ `emailFormat` (`@ParameterizedTest` з `@CsvSource`) | `guest@example.com` → true; `guestexample.com` → false; `guest@example` → false; `@example.com` → false; `guest@.com` → false | нормальний + заборонені | passed |
+| Телефон «+380» + рівно 9 цифр | ★ `phoneFormat` (`@ParameterizedTest` з `@CsvSource`) | `+380501234567` (9) → true; `+38050123456` (8) → false; `+3805012345678` (10) → false; `380501234567` (без +) → false; `+381501234567` → false; `+38050123456a` → false | межа 8/9/10 цифр + формат | passed |
+| `validate(…, email, phone)` додає коди | `invalidContactsAddEmailAndPhoneCodes` (`assertAll`) | коректні дати й гості, email `guestexample.com`, phone `+38050123456` → список містить `INVALID_EMAIL` **і** `INVALID_PHONE` | м'яка перевірка | passed |
 
 ## BL-30 — вихідні ночі · `PriceCalculatorTest` · автор Андрущенко К.
 
