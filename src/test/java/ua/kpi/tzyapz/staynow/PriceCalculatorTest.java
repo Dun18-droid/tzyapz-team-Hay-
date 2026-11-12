@@ -77,17 +77,18 @@ class PriceCalculatorTest {
         assertEquals(expected, calc.nightPrice(new BigDecimal("100"), night), "nightPrice(100, " + night + ")");
     }
 
-    // BUG-010, BUG-011 (module): помилка через відсутність вихідної надбавки для п'ятниці та невірно розрахованого сезонно-вартісного округлення
+    // BUG-011 (module): nightPrice округлює вниз (DOWN) замість HALF_UP — 43.329 → 43.32 замість 43.33.
+    // Обидва набори — будні дні (без надбавки BL-30), тож тест має одну причину впасти і не залежить від BUG-010.
     @Test
     @DisplayName("BL-50: округлення HALF_UP до 2 знаків")
     void nightPriceIsRoundedHalfUp() {
         assertAll("Округлення вартості ночі",
-                // 99.99 × 1,15 = 114,9885 → 114.99 (п'ятниця, звичайний сезон)
-                () -> assertEquals(new BigDecimal("114.99"),
-                        calc.nightPrice(new BigDecimal("99.99"), LocalDate.of(2026, 9, 18))),
-                // 33.33 × 1,30 × 1,15 = 49,82835 → 49.83 (п'ятниця, високий сезон)
-                () -> assertEquals(new BigDecimal("49.83"),
-                        calc.nightPrice(new BigDecimal("33.33"), LocalDate.of(2026, 6, 5))));
+                // 33.33 × 1,30 = 43,329 → 43.33 (середа, високий сезон)
+                () -> assertEquals(new BigDecimal("43.33"),
+                        calc.nightPrice(new BigDecimal("33.33"), LocalDate.of(2026, 6, 3))),
+                // 99.99 × 1,30 = 129,987 → 129.99 (середа, високий сезон)
+                () -> assertEquals(new BigDecimal("129.99"),
+                        calc.nightPrice(new BigDecimal("99.99"), LocalDate.of(2026, 7, 1))));
     }
 
     // BUG-010 (module): 6 ночей дають 615.00 замість 630.00 через те, що п'ятниця порахована як 100, а неділя — як 115

@@ -121,24 +121,24 @@ Severity Major (4.12): помилка в ключовій формулі цін�
 
 ### Description
 Javadoc класу і BL-50 (SRS 1.1) прямо вимагають округлення HALF_UP до 2 знаків. Метод `nightPrice` викликає `setScale(2, RoundingMode.DOWN)` — завжди відкидає зайві розряди, а не округлює за правилом «від 5 — вгору».
-Дефект незалежний від BUG-010 (зсуву дня): навіть якщо надбавка за вихідну ніч через BUG-010 не застосовується, саме сезонний множник уже дає розходження. Для `nightPrice(33.33, 2026-06-05)`: `33.33 × 1.30 = 43.329` — третій знак «9» ≥ 5, тож за HALF_UP має бути `43.33`, а код через DOWN повертає `43.32` (саме це значення й зафіксовано в логу — без жодного стосунку до відсутньої надбавки за вихідний, яка дала б інше число).
+Тест `nightPriceIsRoundedHalfUp` використовує будні дні високого сезону (без надбавки за вихідну ніч, BL-30), тому падає лише через цей дефект і не залежить від BUG-010: `33.33 × 1.30 = 43.329` за HALF_UP має дати `43.33`, а модуль повертає `43.32`.
 Severity Minor (4.12): розходження в копійках, функція в цілому працює. Priority P3 (4.13): інших тестів не блокує.
 
 ### Steps to reproduce
 1. Модуль `staynow` v1; створити `PriceCalculator calc = new PriceCalculator();`.
-2. Викликати `calc.nightPrice(new BigDecimal("33.33"), LocalDate.of(2026, 6, 5))`.
+2. Викликати `calc.nightPrice(new BigDecimal("33.33"), LocalDate.of(2026, 6, 3))` — середа, високий сезон (×1,30), без надбавки за вихідну ніч.
 
 ### Actual result
 `43.32`
 
 ### Expected result
-Мінімум `43.33` (сезонний множник із округленням HALF_UP, без урахування BUG-010); остаточно очікуване тестом значення (з коректною надбавкою за вихідну ніч) — `49.83` (BL-50), що потребує виправлення обох дефектів разом.
+`43.33`: 33.33 × 1,30 = 43,329, округлення HALF_UP до 2 знаків (BL-50).
 
 ### Environment
-Модуль `code/modules/staynow/v1` (версія 1.0.0); JDK 17 (Eclipse Temurin 17.0.21), JUnit 5.10; запуск: `mvn test -Dtest=PriceCalculatorTest`; 09–10.11.2026.
+Модуль `code/modules/staynow/v1` (версія 1.0.0); JDK 17 (Eclipse Temurin 17.0.21), JUnit 5.10; запуск: `mvn test -Dtest=PriceCalculatorTest`; 12.11.2026.
 
 ### Attachments
-Підсумок запуску: `org.opentest4j.AssertionFailedError: expected: <49.83> but was: <43.32>` (`nightPriceIsRoundedHalfUp`, другий кейс). Проміжний розрахунок `33.33 × 1.30 = 43.329 → HALF_UP 43.33 ≠ фактичні 43.32` наведено вище в Description як доказ незалежності від BUG-010.
+Підсумок запуску: `org.opentest4j.AssertionFailedError: expected: <43.33> but was: <43.32>` (`PriceCalculatorTest.nightPriceIsRoundedHalfUp`, перший кейс); другий кейс — `expected: <129.99> but was: <129.98>`.
 
 ---
 
