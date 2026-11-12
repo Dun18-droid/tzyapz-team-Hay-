@@ -4,11 +4,11 @@
 
 ## Розподіл і рецензування
 
-| Тест-клас | Вимоги | Автор | Рецензент | Тест-методів |
-|---|---|---|---|---|
-| `BookingValidatorTest` | BL-10, BL-20 | Мукоїд Е. | Дятлов М. | 5★ + 2 |
-| `PriceCalculatorTest` | BL-30, BL-40, BL-50 | Андрущенко К. | Мукоїд Е. | 5★ + 2 |
-| `AvailabilityTest` | BL-60, BL-70 | Дятлов М. | Андрущенко К. | 4★ + 3 |
+| Тест-клас | Вимоги | Автор | Рецензент | Тест-методів | Code review (чек-лист 5.3) |
+|---|---|---|---|---|---|
+| `BookingValidatorTest` | BL-10, BL-20 | Мукоїд Е. | Дятлов М. | 5★ + 2 | reviewed: Дятлов М., 11.11.2026 |
+| `PriceCalculatorTest` | BL-30, BL-40, BL-50 | Андрущенко К. | Мукоїд Е. | 5★ + 2 | reviewed: Мукоїд Е., 11.11.2026 (PR #15, 3 раунди) |
+| `AvailabilityTest` | BL-60, BL-70 | Дятлов М. | Андрущенко К. | 4★ + 3 | reviewed: Андрущенко К., 12.11.2026 |
 | **Разом** | 7 вимог | 3 автори | перехресно | **14★ + 7** (норматив ≥12, ≥3 на особу) |
 
 ★ — обов'язковий тест. Колонка «Статус» у таблицях нижче заповнюється після першого запуску: `passed` / `failed → BUG-0NN` (дефект модуля) / `reviewed` (позначка рецензента з датою).
@@ -39,17 +39,17 @@
 | Правило | Метод тесту | Вхід → очікування | Тип | Статус |
 |---|---|---|---|---|
 | Ночей 1..30 включно | ★ `nightsOutsideOneToThirtyAreRejected` (`@ParameterizedTest`) | checkIn 2026-11-20; ночей **1** → без `NIGHTS_OUT_OF_RANGE`; **30** → без; **31** → є `NIGHTS_OUT_OF_RANGE` | межа обидва боки | failed → BUG-008 |
-| Виїзд пізніше заїзду | `checkOutNotAfterCheckInIsRejected` (`@ParameterizedTest`) | checkOut = checkIn → є `CHECK_OUT_NOT_AFTER_CHECK_IN`; checkOut = checkIn − 1 → є; checkOut = checkIn + 1 → немає | межа | |
+| Виїзд пізніше заїзду | `checkOutNotAfterCheckInIsRejected` (`@ParameterizedTest`) | checkOut = checkIn → є `CHECK_OUT_NOT_AFTER_CHECK_IN`; checkOut = checkIn − 1 → є; checkOut = checkIn + 1 → немає | межа | passed |
 | Заїзд не раніше today | ★ `checkInBeforeTodayIsRejected` (`@ParameterizedTest`) | checkIn **2026-11-09** (today − 1) → є `CHECK_IN_IN_PAST`; **2026-11-10** (= today) → немає; **2026-11-11** → немає | межа обидва боки | failed → BUG-009 |
-| Гостей 1..capacity | ★ `guestsOutsideOneToCapacityAreRejected` (`@ParameterizedTest`) | guests **0** → є `GUESTS_OUT_OF_RANGE`; **1** → немає; **2** (= capacity) → немає; **3** → є | межа обидва боки | |
+| Гостей 1..capacity | ★ `guestsOutsideOneToCapacityAreRejected` (`@ParameterizedTest`) | guests **0** → є `GUESTS_OUT_OF_RANGE`; **1** → немає; **2** (= capacity) → немає; **3** → є | межа обидва боки | passed |
 
 ## BL-20 — email і телефон · `BookingValidatorTest` · автор Мукоїд Е.
 
 | Правило | Метод тесту | Вхід → очікування | Тип | Статус |
 |---|---|---|---|---|
-| Email «локальна@домен.зона» | ★ `emailFormat` (`@ParameterizedTest` з `@CsvSource`) | `guest@example.com` → true; `guestexample.com` → false; `guest@example` → false; `@example.com` → false; `guest@.com` → false | нормальний + заборонені | |
-| Телефон «+380» + рівно 9 цифр | ★ `phoneFormat` (`@ParameterizedTest` з `@CsvSource`) | `+380501234567` (9) → true; `+38050123456` (8) → false; `+3805012345678` (10) → false; `380501234567` (без +) → false; `+381501234567` → false; `+38050123456a` → false | межа 8/9/10 цифр + формат | |
-| `validate(…, email, phone)` додає коди | `invalidContactsAddEmailAndPhoneCodes` (`assertAll`) | коректні дати й гості, email `guestexample.com`, phone `+38050123456` → список містить `INVALID_EMAIL` **і** `INVALID_PHONE` | м'яка перевірка | |
+| Email «локальна@домен.зона» | ★ `emailFormat` (`@ParameterizedTest` з `@CsvSource`) | `guest@example.com` → true; `guestexample.com` → false; `guest@example` → false; `@example.com` → false; `guest@.com` → false | нормальний + заборонені | passed |
+| Телефон «+380» + рівно 9 цифр | ★ `phoneFormat` (`@ParameterizedTest` з `@CsvSource`) | `+380501234567` (9) → true; `+38050123456` (8) → false; `+3805012345678` (10) → false; `380501234567` (без +) → false; `+381501234567` → false; `+38050123456a` → false | межа 8/9/10 цифр + формат | passed |
+| `validate(…, email, phone)` додає коди | `invalidContactsAddEmailAndPhoneCodes` (`assertAll`) | коректні дати й гості, email `guestexample.com`, phone `+38050123456` → список містить `INVALID_EMAIL` **і** `INVALID_PHONE` | м'яка перевірка | passed |
 
 ## BL-30 — вихідні ночі · `PriceCalculatorTest` · автор Андрущенко К.
 
@@ -68,7 +68,7 @@
 | Правило | Метод тесту | Вхід → очікування | Тип | Статус |
 |---|---|---|---|---|
 | Ніч = тариф × сезон × 1,15 (вихідна) | ★ `nightPriceFormula` (`@ParameterizedTest`) | тариф 100: 2026-09-14 (Пн, звич.) → **100.00**; 2026-09-18 (Пт, звич.) → **115.00**; 2026-07-04 (Сб, висок.) → **149.50**; 2026-11-10 (Вт, низьк.) → **80.00** | нормальні випадки | failed → BUG-010 (кейс 2026-09-18) |
-| Округлення HALF_UP до 2 знаків | `nightPriceIsRoundedHalfUp` (`assertAll`) | 99.99 × 1,15 (2026-09-18, Пт) = 114,9885 → **114.99**; 33.33 × 1,30 × 1,15 (2026-06-05, Пт) = 49,82835 → **49.83** | округлення | failed → BUG-010, BUG-011 |
+| Округлення HALF_UP до 2 знаків | `nightPriceIsRoundedHalfUp` (`assertAll`) | будні дні високого сезону, щоб тест мав одну причину впасти (без надбавки за вихідну ніч, BL-30): 33.33 × 1,30 (2026-06-03, Ср) = 43,329 → **43.33**; 99.99 × 1,30 (2026-07-01, Ср) = 129,987 → **129.99** | округлення | failed → BUG-011 |
 | 7+ ночей — знижка 10 % | ★ `longStayDiscountStartsAtSevenNights` (`assertAll`) | тариф 100, заїзд 2026-09-14 (Пн): **6 ночей** (виїзд 09-20) = 4×100 + 2×115 = **630.00**; **7 ночей** (виїзд 09-21) = (5×100 + 2×115) × 0,90 = **657.00** | межа 6/7 | failed → BUG-010 (кейс «6 ночей»; межа 6/7 сама по собі справна) |
 | Сума ночей через межу сезону | `totalSumsNightsAcrossSeasonBoundary` | тариф 100, 2026-05-30 → 2026-06-02: Сб 115.00 + Нд 100.00 + Пн 01.06 130.00 = **345.00** | нормальний, кожна ніч окремо | failed → BUG-010 |
 | Заборонений вхід | ★ `totalWithInvalidArgumentsThrows` (`@ParameterizedTest` + `assertThrows(IllegalArgumentException)`) | тариф **0** → виняток; тариф **−1** → виняток; виїзд = заїзд → виняток; виїзд раніше заїзду → виняток | винятки | passed |
@@ -77,9 +77,9 @@
 
 | Правило | Метод тесту | Вхід → очікування | Тип | Статус |
 |---|---|---|---|---|
-| ≥7 днів — 0; 3..6 — 50 %; <3 — 100 % | ★ `cancellationFeeAtBoundaries` (`@ParameterizedTest`) | total 1000.00: днів **8 → 0.00**; **7 → 0.00**; **6 → 500.00**; **3 → 500.00**; **2 → 1000.00**; **0 → 1000.00** | межі 7 і 3 з обох боків | |
-| refund = total − плата | ★ `refundAtBoundaries` (`@ParameterizedTest`) | total 1000.00: днів 7 → **1000.00**; 6 → **500.00**; 3 → **500.00**; 2 → **0.00** | межі | |
-| Округлення HALF_UP | `feeAndRefundAreRoundedHalfUp` (`assertAll`) | total 333.33, днів 5: плата 166,665 → **166.67**; refund → **166.66** | округлення | |
+| ≥7 днів — 0; 3..6 — 50 %; <3 — 100 % | ★ `cancellationFeeAtBoundaries` (`@ParameterizedTest`) | total 1000.00: днів **8 → 0.00**; **7 → 0.00**; **6 → 500.00**; **3 → 500.00**; **2 → 1000.00**; **0 → 1000.00** | межі 7 і 3 з обох боків | failed → BUG-014 |
+| refund = total − плата | ★ `refundAtBoundaries` (`@ParameterizedTest`) | total 1000.00: днів 7 → **1000.00**; 6 → **500.00**; 3 → **500.00**; 2 → **0.00** | межі | failed → BUG-014 |
+| Округлення HALF_UP | `feeAndRefundAreRoundedHalfUp` (`assertAll`) | total 333.33, днів 5: плата 166,665 → **166.67**; refund → **166.66** | округлення | passed |
 
 ## BL-70 — зайнятість номера · `AvailabilityTest` · автор Дятлов М.
 
@@ -87,10 +87,10 @@
 
 | Правило | Метод тесту | Вхід → очікування | Тип | Статус |
 |---|---|---|---|---|
-| Напіввідкриті інтервали [checkIn, checkOut) | ★ `isAvailableForIntervals` (`@ParameterizedTest`) | номер 101: 12-15 → 12-17 → **true** (виїзд = заїзд нового); 12-08 → 12-10 → **true** (виїзд нового = заїзд існуючого); 12-14 → 12-16 → **false**; 12-09 → 12-11 → **false**; 12-11 → 12-13 → **false** (всередині); 12-09 → 12-16 → **false** (охоплює) | межі перетину | |
-| Інший номер не зайнятий | `otherRoomIsAvailable` | номер 102: 12-10 → 12-15 → **true** | нормальний | |
-| Бронювання зайнятого номера | ★ `bookingOccupiedRoomThrows` (`assertThrows(IllegalStateException)`) | номер 101: 12-14 → 12-16 → виняток | заборонений вхід | |
-| Бронювання вільного номера | `bookingFreeRoomIsRegistered` (`assertAll`) | номер 101: 12-15 → 12-17 → без винятку; `stays()` містить обидва бронювання | нормальний | |
+| Напіввідкриті інтервали [checkIn, checkOut) | ★ `isAvailableForIntervals` (`@ParameterizedTest`) | номер 101: 12-15 → 12-17 → **true** (виїзд = заїзд нового); 12-08 → 12-10 → **true** (виїзд нового = заїзд існуючого); 12-14 → 12-16 → **false**; 12-09 → 12-11 → **false**; 12-11 → 12-13 → **false** (всередині); 12-09 → 12-16 → **false** (охоплює) | межі перетину | failed → BUG-015 |
+| Інший номер не зайнятий | `otherRoomIsAvailable` | номер 102: 12-10 → 12-15 → **true** | нормальний | passed |
+| Бронювання зайнятого номера | ★ `bookingOccupiedRoomThrows` (`assertThrows(IllegalStateException)`) | номер 101: 12-14 → 12-16 → виняток | заборонений вхід | passed |
+| Бронювання вільного номера | `bookingFreeRoomIsRegistered` (`assertAll`) | номер 101: 12-15 → 12-17 → без винятку; `stays()` містить обидва бронювання | нормальний | failed → BUG-015 |
 
 ## Перед тим як оформити «червоний» тест як дефект
 

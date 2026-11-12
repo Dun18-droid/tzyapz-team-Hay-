@@ -1,6 +1,6 @@
 # UI-сценарії для автоматизації — Спринт 4, «СтейНау»
 
-Автор: Мукоїд Е. (тест-аналітик). Перевірено вручну на demo 08.11.2026, Chrome.
+Автор: Мукоїд Е. (тест-аналітик). Перевірено вручну на demo 08.11.2026, Chrome; уточнено 10.11.2026 (TC-036 крок 3, TC-037 — за GUI-70 і F-85).
 
 **Середовище UI-тестів:** публічний demo `https://automationintesting.online` — тести мають запускатися на будь-якій машині з інтернетом (`mvn test -DexcludedGroups=none`), а локальне розгортання (localhost:3003) на машині викладача відсутнє.
 
@@ -93,14 +93,18 @@
 | 2 | username ← `admin`; password ← `password`; клік `doLogin` | `urlContains("/admin/rooms")` | **м'яко**: видно кнопку Logout; видно посилання Rooms; у таблиці є номер «101» |
 | 3 | клік Logout | `visibilityOfElementLocated(id=username)` | **жорстко**: знову форма входу |
 
+Крок 3 перевіряє F-85 (SRS 1.1): «після Logout система повертає на сторінку входу». Ручна перевірка 10.11.2026: demo після Logout відкриває головну сторінку — розбіжність з F-85, тест червоний і посилається на звіт про дефект.
+
 Не перевіряти кількість номерів у таблиці — її змінюють інші користувачі demo (08.11.2026: десятки записів «QA Double …»).
 
 ### TC-037 — невірний пароль
 
+**Не перевіряти відсутність кнопки Logout:** за GUI-70 (SRS 1.1) кнопка «Logout» є в шапці сторінки входу завжди, навіть до входу (кейс TC-040, passed у спринті 3). Ознака невдалого входу — повідомлення, URL і відсутність посилання Rooms.
+
 | Крок | Дія | Очікування | Перевірка |
 |---|---|---|---|
 | 1 | `get(BASE_URL + "admin")` | `visibilityOfElementLocated(id=username)` | — |
-| 2 | username ← `admin`; password ← `T3-wrong`; клік `doLogin` | `visibilityOfElementLocated(.alert-danger[role='alert'])` | **м'яко**: текст = «Invalid credentials»; URL не містить `/admin/rooms`; кнопки Logout немає |
+| 2 | username ← `admin`; password ← `T3-wrong`; клік `doLogin` | `visibilityOfElementLocated(.alert-danger[role='alert'])` | **м'яко**: текст = «Invalid credentials»; URL не містить `/admin/rooms`; поле `id=username` лишається на сторінці; посилання Rooms (`a[href='/admin/rooms']`) немає |
 
 ## Для Selenium IDE (1–2 сценарії)
 

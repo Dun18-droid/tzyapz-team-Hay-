@@ -13,7 +13,7 @@
 **Environment:** demo v1 (Restful Booker Platform), Chrome (headless/normal), Windows 11  
 **Linked TC / requirement:** TC-036 / F-85 (SRS 1.1)  
 **Reporter:** Костянтин Андрущенко, 11.11.2026  
-**Reviewer:** Мукоїд Едуард  
+**Reviewer:** Мукоїд Е., 11.11.2026  
 **Status:** open  
 
 ### Preconditions
