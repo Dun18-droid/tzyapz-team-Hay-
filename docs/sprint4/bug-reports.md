@@ -17,29 +17,29 @@
 
 **Title:** BookingValidator.validate відхиляє бронювання рівно на 30 ночей (NIGHTS_OUT_OF_RANGE)
 
-**Bug ID:** BUG-008 **Мітка:** module **Reporter:** Мукоїд Е. **Date:** 08.11.2026 **Reviewer:** — **Status:** New
+**Bug ID:** BUG-008 **Мітка:** module **Reporter:** Мукоїд Е. **Date:** 08.11.2026 **Reviewer:** Дятлов М., 11.11.2026 **Status:** New
 **Severity:** Normal **Priority:** P3
-**Linked:** requirement BL-10; test `BookingValidatorTest.nightsOutsideOneToThirtyAreRejected` (набір [2] «30, false»)
+**Linked:** requirement BL-10; test BookingValidatorTest.nightsOutsideOneToThirtyAreRejected (набір [2] «30, false»)
 
 ### Description
-BL-10 (SRS 1.1) вимагає, щоб кількість ночей була від 1 до 30 **включно**. Модуль v1 повертає `NIGHTS_OUT_OF_RANGE` для 30 ночей, тобто відхиляє максимальне допустиме бронювання; верхню межу реалізовано як «< 30» замість «≤ 30». Значення 1 і 31 обробляються правильно.
+BL-10 (SRS 1.1) вимагає, щоб кількість ночей була від 1 до 30 **включно**. Модуль v1 повертає NIGHTS_OUT_OF_RANGE для 30 ночей, тобто відхиляє максимальне допустиме бронювання; верхню межу реалізовано як «< 30» замість «≤ 30». Значення 1 і 31 обробляються правильно.
 Severity Normal (4.12): бронювання можливе, але не на всю допустиму тривалість — гість не може забронювати 30 ночей. Priority P3 (4.13): інших тестів не блокує.
 
 ### Steps to reproduce
-1. Модуль `staynow` v1; створити `PriceCalculator calc = new PriceCalculator();`.
-2. Викликати `calc.nightPrice(new BigDecimal("33.33"), LocalDate.of(2026, 6, 3))` — середа, високий сезон (×1,30), без надбавки за вихідну ніч.
+1. Модуль staynow v1; створити BookingValidator validator = new BookingValidator();.
+2. Викликати validator.validate(LocalDate.of(2026, 11, 20), LocalDate.of(2026, 12, 20), 1, 2, LocalDate.of(2026, 11, 10)) — 30 ночей, 1 гість, місткість 2, today = 10.11.2026.
 
 ### Actual result
-`43.32`
+Повертається список [NIGHTS_OUT_OF_RANGE].
 
 ### Expected result
-`43.33`: 33.33 × 1,30 = 43,329, округлення HALF_UP до 2 знаків (BL-50).
+Порожній список: 30 ночей допустимі (BL-10, «від 1 до 30 включно»).
 
 ### Environment
-Модуль `code/modules/staynow/v1` (версія 1.0.0); JDK 17 (Eclipse Temurin 17.0.21), JUnit 5.10; запуск: `mvn test -Dtest=PriceCalculatorTest`; 12.11.2026.
+Модуль code/modules/staynow/v1 (версія 1.0.0); JDK 17 (Eclipse Temurin 17.0.21), JUnit 5.10; запуск: mvn test -Dtest=BookingValidatorTest (або IntelliJ IDEA → Run 'BookingValidatorTest'); 08.11.2026.
 
 ### Attachments
-Підсумок запуску: `org.opentest4j.AssertionFailedError: expected: <43.33> but was: <43.32>` (`PriceCalculatorTest.nightPriceIsRoundedHalfUp`, перший кейс); другий кейс — `expected: <129.99> but was: <129.98>`.
+Підсумок запуску: org.opentest4j.AssertionFailedError: Ночей: 30, отримано помилки: [NIGHTS_OUT_OF_RANGE] ==> Expected: false, Actual: true (BookingValidatorTest.nightsOutsideOneToThirtyAreRejected).
 
 ---
 
@@ -124,16 +124,16 @@ Severity Minor (4.12): розходження в копійках, функці�
 
 ### Steps to reproduce
 1. Модуль `staynow` v1; створити `PriceCalculator calc = new PriceCalculator();`.
-2. Викликати `calc.nightPrice(new BigDecimal("33.33"), LocalDate.of(2026, 6, 5))`.
+2. Викликати `calc.nightPrice(new BigDecimal("33.33"), LocalDate.of(2026, 6, 3))` — середа, високий сезон (×1,30), без надбавки за вихідну ніч.
 
 ### Actual result
 `43.32`
 
 ### Expected result
-Мінімум `43.33` (сезонний множник із округленням HALF_UP, без урахування BUG-010); остаточно очікуване тестом значення (з коректною надбавкою за вихідну ніч) — `49.83` (BL-50), що потребує виправлення обох дефектів разом.
+`43.33`: 33.33 × 1,30 = 43,329, округлення HALF_UP до 2 знаків (BL-50).
 
 ### Environment
-Модуль `code/modules/staynow/v1` (версія 1.0.0); JDK 17 (Eclipse Temurin 17.0.21), JUnit 5.10; запуск: `mvn test -Dtest=PriceCalculatorTest`; 09–10.11.2026.
+Модуль `code/modules/staynow/v1` (версія 1.0.0); JDK 17 (Eclipse Temurin 17.0.21), JUnit 5.10; запуск: `mvn test -Dtest=PriceCalculatorTest`; 12.11.2026.
 
 ### Attachments
-Підсумок запуску: `org.opentest4j.AssertionFailedError: expected: <49.83> but was: <43.32>` (`nightPriceIsRoundedHalfUp`, другий кейс). Проміжний розрахунок `33.33 × 1.30 = 43.329 → HALF_UP 43.33 ≠ фактичні 43.32` наведено вище в Description як доказ незалежності від BUG-010.
+Підсумок запуску: `org.opentest4j.AssertionFailedError: expected: <43.33> but was: <43.32>` (`PriceCalculatorTest.nightPriceIsRoundedHalfUp`, перший кейс); другий кейс — `expected: <129.99> but was: <129.98>`.
