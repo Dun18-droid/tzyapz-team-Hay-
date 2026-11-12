@@ -83,16 +83,16 @@ mvn test -DexcludedGroups=none -Dtest=AdminLoginTest      # один UI-клас
 
 ## 6. Дефекти модуля v1
 
-| ID | Вимога | Дефект | Тест |
-|---|---|---|---|
-| BUG-008 | BL-10 | 30 ночей відхиляється (`< 30` замість `≤ 30`) | `BookingValidatorTest.nightsOutsideOneToThirtyAreRejected` |
-| BUG-009 | BL-10 | дата заїзду в минулому приймається | `BookingValidatorTest.checkInBeforeTodayIsRejected` |
-| BUG-010 | BL-30 | вихідні — субота й неділя замість п'ятниці й суботи | `PriceCalculatorTest.weekendNightIsFridayAndSaturday` та ще 3 |
-| BUG-011 | BL-50 | округлення DOWN замість HALF_UP | `PriceCalculatorTest.nightPriceIsRoundedHalfUp` |
-| BUG-014 | BL-60 | рівно 7 днів до заїзду — плата 50 % замість 0 | `AvailabilityTest.cancellationFeeAtBoundaries`, `refundAtBoundaries` |
-| BUG-015 | BL-70 | виїзд у день заїзду іншого гостя вважається перетином | `AvailabilityTest.isAvailableForIntervals`, `bookingFreeRoomIsRegistered` |
+| ID | Вимога | Severity | Дефект | Тест |
+|---|---|---|---|---|
+| BUG-008 | BL-10 | Normal | 30 ночей відхиляється (`< 30` замість `≤ 30`) | `BookingValidatorTest.nightsOutsideOneToThirtyAreRejected` |
+| BUG-009 | BL-10 | Major | дата заїзду в минулому приймається | `BookingValidatorTest.checkInBeforeTodayIsRejected` |
+| BUG-010 | BL-30 | Major | вихідні — субота й неділя замість п'ятниці й суботи | `PriceCalculatorTest.weekendNightIsFridayAndSaturday` та ще 3 |
+| BUG-011 | BL-50 | Minor | округлення DOWN замість HALF_UP | `PriceCalculatorTest.nightPriceIsRoundedHalfUp` |
+| BUG-014 | BL-60 | Major | рівно 7 днів до заїзду — плата 50 % замість 0 | `AvailabilityTest.cancellationFeeAtBoundaries`, `refundAtBoundaries` |
+| BUG-015 | BL-70 | Major | виїзд у день заїзду іншого гостя вважається перетином | `AvailabilityTest.isAvailableForIntervals`, `bookingFreeRoomIsRegistered` |
 
-Повні звіти — [bug-reports.md](docs/sprint4/bug-reports.md).
+Severity — за шкалою спринта 3 (4.12); усі дефекти мають Priority P3. Повні звіти — [bug-reports.md](docs/sprint4/bug-reports.md).
 
 ## 7. Що не покрито і чому
 
@@ -104,13 +104,23 @@ mvn test -DexcludedGroups=none -Dtest=AdminLoginTest      # один UI-клас
 
 ## 8. Ризики
 
-**Selenium IDE.** Запис у `selenium-ide/staynow.side` і його експорт у `selenium-ide/export/` не можна
-вважати готовим тестом. Експорт є чернеткою: він у стилі JUnit 4 і Hamcrest, відкриває Firefox без headless,
-використовує `new WebDriverWait(driver, 15)` (такого конструктора немає в Selenium 4), а вставлення значень
-через `executeScript` перетворилося на присвоєння змінним замість заповнення полів (поле Name в експорті
-взагалі відсутнє). Тому експорт лежить поза `src/` і не збирається; робочий тест TC-021 — це
-`ContactFormTest.validMessageShowsThanks`. Сам запис також містить дубльовані команди й клік по
-`css=.justify-content-center` без користі — його варто чистити перед відтворенням.
+**Selenium IDE.** `selenium-ide/staynow.side` — записаний сценарій TC-021 (21 команда: `open`,
+`setWindowSize`, 2 × `waitForElementVisible`, 6 × `click`, 10 × `executeScript`, фінальний `assertText` із
+текстом подяки). Запис і його експорт не можна запускати як тест проєкту:
+
+1. Поля форми заповнено командами `executeScript` (значення виставляє JavaScript), а не `type`. Експорт
+   `selenium-ide/export/TC021contactformvalidmessageTest.java` цього не витримав: значення полів стали іменами
+   змінних у `vars.put("t3.guest@example.com", …)`, а поле Name не заповнюється зовсім (код лише чекає на його
+   появу), хоча фінальна перевірка очікує «Thanks for getting in touch T3-Guest!». Тобто експорт не пройшов би
+   й після компіляції.
+2. Експорт написано в стилі JUnit 4 і Hamcrest (`@Before`, `org.junit.Test`, `assertThat`), він відкриває
+   `FirefoxDriver` без headless і використовує старе очікування `new WebDriverWait(driver, 15)` (у Selenium 4
+   час очікування задається через `Duration`). У проєкті — JUnit 5 і Chrome.
+3. Відтворення залежить від спільного demo: верстка чи дані можуть змінитися, тож сценарій перед демо
+   відтворюють у Selenium IDE ще раз.
+
+Тому експорт лежить поза `src/` і не збирається — він довідковий. Робочий тест TC-021 —
+`ContactFormTest.validMessageShowsThanks`.
 
 **Спільний demo.** UI-тести ходять на публічний demo, яким користуються й інші: дані можуть змінюватися,
 сайт може відповідати повільно або бути недоступним. Тому очікування — 15 с, а тести не рахують кількість номерів і повідомлень. Падіння UI-тесту без змін у коді спершу перевіряємо на самому demo.
@@ -122,3 +132,27 @@ mvn test -DexcludedGroups=none -Dtest=AdminLoginTest      # один UI-клас
 `chromedriver` у `PATH` (наприклад `/usr/bin/chromedriver` з пакета дистрибутива), він береться замість
 завантаженого й UI-тести падають із `SessionNotCreatedException` (версія драйвера не збігається з Chrome).
 Лікування: `which -a chromedriver`, перейменувати старий файл і очистити `~/.cache/selenium`.
+
+## 9. Висновок про стан модуля v1
+
+**Модуль `staynow` v1 не готовий до випуску.** 76 запусків тестів трьох класів модуля дали 63 passed і
+13 red; усі 13 червоних пояснюються шістьма дефектами з розділу 6 (протокол — [surefire-summary.md](docs/sprint4/surefire-summary.md)).
+
+| Клас | Вимоги | Що працює | Що ні |
+|---|---|---|---|
+| `BookingValidator` | BL-10, BL-20 | перевірка email, телефону і кількості гостей (BL-20); решта меж ночей | 30 ночей відхиляється (BUG-008, Normal); дата заїзду в минулому приймається (BUG-009, Major) |
+| `PriceCalculator` | BL-30, BL-40, BL-50 | сезонні коефіцієнти на межах сезонів | вихідні рахуються як субота й неділя замість п'ятниці й суботи, тож п'ятнична ніч без надбавки, а недільна з нею (BUG-010, Major); округлення вниз замість HALF_UP (BUG-011, Minor) |
+| `Availability` | BL-60, BL-70 | пороги 3, 6 і 8 днів скасування; справжні перетини дат | рівно 7 днів дає плату 50 % замість 0 (BUG-014, Major); виїзд у день заїзду іншого гостя блокує бронювання (BUG-015, Major) |
+
+Що це означає для продукту: чотири дефекти Major зачіпають гроші й доступність номерів — неправильна ціна
+п'ятниці й неділі, втрата половини вартості при скасуванні за тиждень, неможливість забронювати номер у день
+виїзду попереднього гостя, прийняття заїзду в минулому; Normal і Minor дають розходження в одну ніч або в
+копійках. Дефекти локалізовані: у кожному випадку це неправильна умова, константа або режим округлення в
+одному методі, тож виправлення очікується точковим.
+
+Рекомендація: v1 не випускати. У спринті 5 той самий набір запускається на v2: тест, що був червоним через
+дефект, стає зеленим (дефект closed) або лишається червоним (reopened), а нові червоні тести вказують на регресію.
+
+Обмеження висновку: він стосується правил BL-10…BL-70, перевірених юніт-тестами. Правило
+`INVALID_DATE_FORMAT` не підтверджено замовником (розділ 7), а сценарії бронювання через інтерфейс не
+автоматизовано, тому про них висновку немає.
