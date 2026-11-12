@@ -106,7 +106,12 @@ Severity — за шкалою спринта 3 (4.12); усі дефекти м
 
 **Selenium IDE.** `selenium-ide/staynow.side` — записаний сценарій TC-021 (21 команда: `open`,
 `setWindowSize`, 2 × `waitForElementVisible`, 6 × `click`, 10 × `executeScript`, фінальний `assertText` із
-текстом подяки). Запис і його експорт не можна запускати як тест проєкту:
+текстом подяки). Чому так: розширення Selenium IDE прибрано з Chrome Web Store, а в Edge його вимикають
+(перехід на Manifest V3), тому запис виконано у Firefox (Selenium IDE 3.17.4). У сучасному Firefox у цій версії
+не працюють команди `type` і `send keys` (`initKeyEvent is not a function`), тому поля заповнюються через
+`executeScript`; перед ними стоїть `waitForElementVisible | id=name | 15000` — без очікування скрипт падав
+приблизно в половині запусків, бо React ще не встигав відмалювати форму. Запис і його експорт не можна
+запускати як тест проєкту:
 
 1. Поля форми заповнено командами `executeScript` (значення виставляє JavaScript), а не `type`. Експорт
    `selenium-ide/export/TC021contactformvalidmessageTest.java` цього не витримав: значення полів стали іменами
