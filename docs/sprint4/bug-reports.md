@@ -26,20 +26,20 @@ BL-10 (SRS 1.1) вимагає, щоб кількість ночей була в
 Severity Normal (4.12): бронювання можливе, але не на всю допустиму тривалість — гість не може забронювати 30 ночей. Priority P3 (4.13): інших тестів не блокує.
 
 ### Steps to reproduce
-1. Модуль `staynow` v1; створити `BookingValidator validator = new BookingValidator();`.
-2. Викликати `validator.validate(LocalDate.of(2026, 11, 20), LocalDate.of(2026, 12, 20), 1, 2, LocalDate.of(2026, 11, 10))` — 30 ночей, 1 гість, місткість 2, today = 10.11.2026.
+1. Модуль `staynow` v1; створити `PriceCalculator calc = new PriceCalculator();`.
+2. Викликати `calc.nightPrice(new BigDecimal("33.33"), LocalDate.of(2026, 6, 3))` — середа, високий сезон (×1,30), без надбавки за вихідну ніч.
 
 ### Actual result
-Повертається список `[NIGHTS_OUT_OF_RANGE]`.
+`43.32`
 
 ### Expected result
-Порожній список: 30 ночей допустимі (BL-10, «від 1 до 30 включно»).
+`43.33`: 33.33 × 1,30 = 43,329, округлення HALF_UP до 2 знаків (BL-50).
 
 ### Environment
-Модуль `code/modules/staynow/v1` (версія 1.0.0); JDK 17 (Eclipse Temurin 17.0.21), JUnit 5.10; запуск: `mvn test -Dtest=BookingValidatorTest` (або IntelliJ IDEA → Run 'BookingValidatorTest'); 08.11.2026.
+Модуль `code/modules/staynow/v1` (версія 1.0.0); JDK 17 (Eclipse Temurin 17.0.21), JUnit 5.10; запуск: `mvn test -Dtest=PriceCalculatorTest`; 12.11.2026.
 
 ### Attachments
-Підсумок запуску: `org.opentest4j.AssertionFailedError: Ночей: 30, отримано помилки: [NIGHTS_OUT_OF_RANGE] ==> Expected: false, Actual: true` (BookingValidatorTest.nightsOutsideOneToThirtyAreRejected).
+Підсумок запуску: `org.opentest4j.AssertionFailedError: expected: <43.33> but was: <43.32>` (`PriceCalculatorTest.nightPriceIsRoundedHalfUp`, перший кейс); другий кейс — `expected: <129.99> but was: <129.98>`.
 
 ---
 
