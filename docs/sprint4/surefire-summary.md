@@ -35,7 +35,7 @@ Google Chrome 157.0.8103.50 (headless), Selenium 4.21.0, Surefire 3.2.5, JUnit J
 | `PriceCalculatorTest.nightPriceFormula` [2] — 100, 2026-09-18 (Пт) | 115.00 очікували, 100.00 | BUG-010 |
 | `PriceCalculatorTest.totalSumsNightsAcrossSeasonBoundary` | 345.00 очікували, 360.00 | BUG-010 |
 | `PriceCalculatorTest.longStayDiscountStartsAtSevenNights` — 6 ночей | 630.00 очікували, 615.00 | BUG-010 |
-| `PriceCalculatorTest.nightPriceIsRoundedHalfUp` — 114.99 / 49.83 | 99.99 і 43.32 | BUG-010, BUG-011 |
+| `PriceCalculatorTest.nightPriceIsRoundedHalfUp` — 43.33 / 129.99 (будні дні, 2026-06-03 і 2026-07-01) | 43.32 і 129.98 | BUG-011 |
 | `AvailabilityTest.cancellationFeeAtBoundaries` [2] — 7 днів | 0.00 очікували, 500.00 | BUG-014 |
 | `AvailabilityTest.refundAtBoundaries` [1] — 7 днів | 1000.00 очікували, 500.00 | BUG-014 |
 | `AvailabilityTest.isAvailableForIntervals` [1] 12-15→12-17; [2] 12-08→12-10 | true очікували, false | BUG-015 |
