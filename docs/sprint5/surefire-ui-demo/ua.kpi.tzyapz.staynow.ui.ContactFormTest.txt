@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: ua.kpi.tzyapz.staynow.ui.ContactFormTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.24 s -- in ua.kpi.tzyapz.staynow.ui.ContactFormTest
