@@ -161,3 +161,17 @@ Severity — за шкалою спринта 3 (4.12); усі дефекти м
 Обмеження висновку: він стосується правил BL-10…BL-70, перевірених юніт-тестами. Правило
 `INVALID_DATE_FORMAT` не підтверджено замовником (розділ 7), а сценарії бронювання через інтерфейс не
 автоматизовано, тому про них висновку немає.
+
+## 10. Спринт 5: регресія і звіт про якість
+
+| Артефакт | Файл |
+|---|---|
+| Звіт про якість продукту | [quality-report.docx](docs/sprint5/quality-report.docx), [PDF](docs/sprint5/quality-report.pdf) |
+| План регресії з критеріями go/no-go і рішенням (no-go) | [regression-plan.md](docs/sprint5/regression-plan.md) |
+| Журнал регресії | [regression-log.xlsx](docs/sprint5/regression-log.xlsx) |
+| Матриця простежуваності | [traceability-matrix.xlsx](docs/sprint5/traceability-matrix.xlsx) |
+| Звіти Surefire v1 / v2 / UI на demo | [surefire-v1](docs/sprint5/surefire-v1), [surefire-v2](docs/sprint5/surefire-v2), [surefire-ui-demo](docs/sprint5/surefire-ui-demo) |
+| Таблиця задач | [tasks.md](docs/sprint5/tasks.md) |
+| Рецензія звіту на DoD | [review-checklist.md](docs/sprint5/review-checklist.md) |
+
+**Трекер дефектів** - markdown-файли в репозиторії (GitHub Issues не використовуються): [спринт 3](docs/sprint3/bug-reports.md) (BUG-001...007), [спринт 4, модуль](docs/sprint4/bug-reports.md) (BUG-008...011, 014, 015), [спринт 4, demo](docs/sprint4/bug-reports-demo.md) (BUG-013), [спринт 5, регресія і нові дефекти](docs/sprint5/defects-regression.md) (BUG-016...026). Статуси після регресії - [defect-verification.md](docs/sprint5/defect-verification.md).
