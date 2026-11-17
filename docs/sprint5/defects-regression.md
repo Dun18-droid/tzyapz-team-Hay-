@@ -1,8 +1,8 @@
 # Звіти про дефекти регресії - Спринт 5, «СтейНау»
 
-> **Статус документа:** чернетка від 17.11.2026 (Мукоїд Е.), очікує рецензії Керівника тестування (Андрущенко К.).
-> Номери BUG-016...BUG-026 **робочі**: їх підтверджує Керівник після рецензії. Журнал: `docs/sprint5/regression-log.xlsx`.
-> Статуси дефектів BUG-001...BUG-015 (Verified / Closed / Reopened) оформлюються окремо (задача 8 спринта 5).
+> **Статус документа:** затверджено Керівником тестування (Андрущенко К.) рецензією PR #24 і #25, 17.11.2026. Автор - Мукоїд Е.
+> Номери BUG-016...BUG-026 затверджено. Журнал: `docs/sprint5/regression-log.xlsx`.
+> Статуси дефектів BUG-001...BUG-015 - у `defect-verification.md`.
 
 ## 1. Регресійний дефект коду модуля v2
 
@@ -17,7 +17,7 @@
 **Environment:** модуль `staynow` v2, JDK 17 (Surefire v2), Windows 11, Maven Surefire; прогін 16.11.2026  
 **Linked TC / requirement:** `PriceCalculatorTest` / BL-40 (SRS 1.1)  
 **Reporter:** Мукоїд Е., 17.11.2026  
-**Reviewer:** Андрущенко К. (очікується)  
+**Reviewer:** Андрущенко К., 17.11.2026  
 **Status:** new  
 **Тип:** регресія v2 (passed на v1, failed на v2)
 
@@ -51,7 +51,7 @@ Severity і Priority - за шкалою трекера спринтів 3-4 (Bl
 
 Стенд: ZIP гілки trunk, `http://localhost:3003`, Kali Linux (VM), Firefox; кейси TC-002, 012, 039, 051, 052, 053 додатково виконано в Chromium (результати збіглись), а TC-042, TC-051, TC-055 і підтвердження TC-002, 023, 036, 039, 041, 053, 054 - на публічному demo (Chrome; бронювання на demo не працює); виконавець Мукоїд Е., 16-17.11.2026. Очікуваний результат береться з кейса і SRS 1.1 (підтвердження замовника відсутнє). Для дефектів, що можуть залежати від браузера чи збірки, це зазначено окремо.
 
-| ID (робочий) | Severity | Priority | Кейс | Вимога | Короткий опис | Статус |
+| ID | Severity | Priority | Кейс | Вимога | Короткий опис | Статус |
 |---|---|---|---|---|---|---|
 | BUG-017 | Minor | P3 | TC-009, TC-010, TC-016 | F-60 | Після бронювання показано «Booking Confirmed» замість «Booking Successful!» (SRS просить підтвердити текст у замовника) | new |
 | BUG-018 | Major | P2 | TC-009 | F-40 | Часткове перетин бронювання не виключає номер з переліку вільних | new |
@@ -75,7 +75,7 @@ Severity і Priority - за шкалою трекера спринтів 3-4 (Bl
 **Environment:** restful-booker-platform trunk, localhost:3003, Kali Linux, Firefox  
 **Linked TC / requirement:** TC-009 / F-40 (пов'язано з BL-70)  
 **Reporter:** Мукоїд Е., 16.11.2026  
-**Reviewer:** Андрущенко К. (очікується)  
+**Reviewer:** Андрущенко К., 17.11.2026  
 **Status:** new  
 
 #### Steps to reproduce
@@ -101,7 +101,7 @@ Single £100 лишається в переліку; у відповіді вс�
 **Environment:** restful-booker-platform trunk, localhost:3003, Kali Linux, Firefox  
 **Linked TC / requirement:** TC-044 / F-90  
 **Reporter:** Мукоїд Е., 17.11.2026  
-**Reviewer:** Андрущенко К. (очікується)  
+**Reviewer:** Андрущенко К., 17.11.2026  
 **Status:** new  
 
 #### Steps to reproduce
