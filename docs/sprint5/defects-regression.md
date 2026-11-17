@@ -59,8 +59,8 @@
 | BUG-022 | Low | TC-012 | F-50 | У календарі сторінки номера не виділено день виїзду, якщо він потрапляє на наступний рядок календаря | new |
 | BUG-023 | Low | TC-002 | F-10 | Пункт меню «Booking» прокручує нижче заголовка віджета, видно лише кнопку Check Availability (відтворюється у Firefox, Chromium і на demo в Chrome) | new |
 | BUG-024 | Low | TC-053 | GUI-90 | На екрані 375 px карта в блоці «Our Location» стискається до смужки ~25 px (відтворюється у Firefox, Chromium і на demo) | new |
+| BUG-025 | Medium | TC-042 | S-10, F-85 | На demo `POST https://automationintesting.online/api/auth/logout` повертає 500 Internal Server Error, тіло `{"message":"Failed to logout"}`; інтерфейс при цьому відкриває головну; повторне відкриття `/admin` показує форму входу (17.11.2026), тобто сесія на клієнті завершується. На локальному стенді запит не перевірявся | new |
 | BUG-026 | Low | TC-051 | GUI-20 | Поля Check In / Check Out показують дату як дд/мм/рррр (17/11/2026), очікувалось мм/дд/рррр; компонент react-datepicker застосунку, відтворюється в Firefox, Chromium і на demo (SRS позначає GUI-20 як потребує підтвердження замовника) | new |
-| BUG-025 | Medium | TC-042 | S-10, F-85 | На demo `POST https://automationintesting.online/api/auth/logout` повертає 500 Internal Server Error, тіло `{"message":"Failed to logout"}`; інтерфейс при цьому відкриває головну. На локальному стенді запит не перевірявся | new |
 
 Уже відомі дефекти, що **відтворились** під час прогону (нових номерів не отримують): BUG-001 (TC-050), BUG-002 (TC-048), BUG-003...BUG-006 (TC-019), BUG-007 (TC-020), BUG-013 (TC-036, TC-041, TC-042; відтворюється і на demo).
 
