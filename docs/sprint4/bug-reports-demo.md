@@ -14,7 +14,7 @@
 **Linked TC / requirement:** TC-036 / F-85 (SRS 1.1)  
 **Reporter:** Костянтин Андрущенко, 11.11.2026  
 **Reviewer:** Мукоїд Е., 11.11.2026  
-**Status:** open  
+**Status:** open (підтверджено на v2, 17.11.2026, Мукоїд Е.; див. docs/sprint5/defect-verification.md)  
 
 ### Preconditions
 Адміністратор авторизований у системі за адресою `BASE_URL + "admin"`, відкрито сторінку `/admin/rooms`.
