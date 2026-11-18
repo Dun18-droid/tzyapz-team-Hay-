@@ -20,13 +20,13 @@
 
 | Bug ID | Title | Severity | Priority | TC | Вимога | Статус |
 |---|---|---|---|---|---|---|
-| [BUG-001](#bug-001) | Сесія адміністратора не завершується після 30 хвилин неактивності | Major | P3 | TC-050 | S-20, F-130 | New |
-| [BUG-002](#bug-002) | Розділ «Report» не дає вибрати період і не позначає майбутній період «Прогноз» | Normal | P3 | TC-048 | F-120 | New |
-| [BUG-003](#bug-003) | Форма бронювання: при порожньому Lastname помилка «size must be between 3 and 30» не називає поле | Minor | P3 | TC-019 | GUI-60 | New |
-| [BUG-004](#bug-004) | Форма бронювання: при порожньому Email помилка «must not be empty» не називає поле | Minor | P3 | TC-019 | GUI-60 | New |
-| [BUG-005](#bug-005) | Форма бронювання: при порожньому Phone помилки «must not be empty» і «size must be between 11 and 21» не називають поле | Minor | P3 | TC-019 | GUI-60 | New |
-| [BUG-006](#bug-006) | Форма бронювання: при порожньому Firstname друга помилка «size must be between 3 and 18» не називає поле | Minor | P3 | TC-019 | GUI-60 | New |
-| [BUG-007](#bug-007) | Форма бронювання: при Email без «@» помилка «must be a well-formed email address» не називає поле | Minor | P3 | TC-020 | GUI-60 | New |
+| [BUG-001](#bug-001) | Сесія адміністратора не завершується після 30 хвилин неактивності | Major | P3 | TC-050 | S-20, F-130 | Open |
+| [BUG-002](#bug-002) | Розділ «Report» не дає вибрати період і не позначає майбутній період «Прогноз» | Normal | P3 | TC-048 | F-120 | Open |
+| [BUG-003](#bug-003) | Форма бронювання: при порожньому Lastname помилка «size must be between 3 and 30» не називає поле | Minor | P3 | TC-019 | GUI-60 | Open |
+| [BUG-004](#bug-004) | Форма бронювання: при порожньому Email помилка «must not be empty» не називає поле | Minor | P3 | TC-019 | GUI-60 | Open |
+| [BUG-005](#bug-005) | Форма бронювання: при порожньому Phone помилки «must not be empty» і «size must be between 11 and 21» не називають поле | Minor | P3 | TC-019 | GUI-60 | Open |
+| [BUG-006](#bug-006) | Форма бронювання: при порожньому Firstname друга помилка «size must be between 3 and 18» не називає поле | Minor | P3 | TC-019 | GUI-60 | Open |
+| [BUG-007](#bug-007) | Форма бронювання: при Email без «@» помилка «must be a well-formed email address» не називає поле | Minor | P3 | TC-020 | GUI-60 | Open |
 
 Разом: 7 звітів; severity — Major 1, Normal 1, Minor 5; priority — P3 7.
 
@@ -36,7 +36,7 @@
 
 **Title:** Сесія адміністратора не завершується після 30 хвилин неактивності
 
-**Bug ID:** BUG-001 **Reporter:** Дятлов М. **Date:** 25.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** New
+**Bug ID:** BUG-001 **Reporter:** Дятлов М. **Date:** 25.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** Open (підтверджено на v2, 16.11.2026, Мукоїд Е.; див. docs/sprint5/defect-verification.md)
 **Severity:** Major **Priority:** P3
 **Linked:** test case TC-050; requirement S-20, F-130
 
@@ -70,7 +70,7 @@ Severity Major (4.12): вимога безпеки не виконується �
 
 **Title:** Розділ «Report» не дає вибрати період і не позначає майбутній період «Прогноз»
 
-**Bug ID:** BUG-002 **Reporter:** Дятлов М. **Date:** 25.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** New
+**Bug ID:** BUG-002 **Reporter:** Дятлов М. **Date:** 25.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** Open (підтверджено на v2, 16.11.2026, Мукоїд Е.; див. docs/sprint5/defect-verification.md)
 **Severity:** Normal **Priority:** P3
 **Linked:** test case TC-048; requirement F-120
 
@@ -104,7 +104,7 @@ Severity Normal (4.12): адмінпанеллю користуватися мо
 
 **Title:** Форма бронювання: при порожньому Lastname помилка «size must be between 3 and 30» не називає поле
 
-**Bug ID:** BUG-003 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** New
+**Bug ID:** BUG-003 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** Open (підтверджено на v2, 16.11.2026, Мукоїд Е.; див. docs/sprint5/defect-verification.md)
 **Severity:** Minor **Priority:** P3
 **Linked:** test case TC-019; requirement GUI-60
 
@@ -139,7 +139,7 @@ Severity Minor (4.12): проблема інтерфейсу — бронюва�
 
 **Title:** Форма бронювання: при порожньому Email помилка «must not be empty» не називає поле
 
-**Bug ID:** BUG-004 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** New
+**Bug ID:** BUG-004 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** Open (підтверджено на v2, 16.11.2026, Мукоїд Е.; див. docs/sprint5/defect-verification.md)
 **Severity:** Minor **Priority:** P3
 **Linked:** test case TC-019; requirement GUI-60
 
@@ -174,7 +174,7 @@ Severity Minor (4.12): проблема інтерфейсу, бронюванн
 
 **Title:** Форма бронювання: при порожньому Phone помилки «must not be empty» і «size must be between 11 and 21» не називають поле
 
-**Bug ID:** BUG-005 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** New
+**Bug ID:** BUG-005 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** Open (підтверджено на v2, 16.11.2026, Мукоїд Е.; див. docs/sprint5/defect-verification.md)
 **Severity:** Minor **Priority:** P3
 **Linked:** test case TC-019; requirement GUI-60
 
@@ -209,7 +209,7 @@ Severity Minor (4.12): проблема інтерфейсу, бронюванн
 
 **Title:** Форма бронювання: при порожньому Firstname друга помилка «size must be between 3 and 18» не називає поле
 
-**Bug ID:** BUG-006 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** New
+**Bug ID:** BUG-006 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** Open (підтверджено на v2, 16.11.2026, Мукоїд Е.; див. docs/sprint5/defect-verification.md)
 **Severity:** Minor **Priority:** P3
 **Linked:** test case TC-019; requirement GUI-60
 
@@ -244,7 +244,7 @@ Severity Minor (4.12): проблема інтерфейсу, бронюванн
 
 **Title:** Форма бронювання: при Email без «@» помилка «must be a well-formed email address» не називає поле
 
-**Bug ID:** BUG-007 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** New
+**Bug ID:** BUG-007 **Reporter:** Дятлов М. **Date:** 28.10.2026 **Reviewer:** Мукоїд Е., 29.10.2026 **Status:** Open (підтверджено на v2, 16.11.2026, Мукоїд Е.; див. docs/sprint5/defect-verification.md)
 **Severity:** Minor **Priority:** P3
 **Linked:** test case TC-020; requirement GUI-60, F-60
 

@@ -6,12 +6,12 @@
 
 | Bug ID | Title | Severity | Priority | Вимога | Тест | Статус |
 |---|---|---|---|---|---|---|
-| [BUG-008](#bug-008) | BookingValidator.validate відхиляє бронювання рівно на 30 ночей | Normal | P3 | BL-10 | `BookingValidatorTest.nightsOutsideOneToThirtyAreRejected` | New |
-| [BUG-009](#bug-009) | BookingValidator.validate приймає дату заїзду, ранішу за today | Major | P3 | BL-10 | `BookingValidatorTest.checkInBeforeTodayIsRejected` | New |
-| [BUG-010](#bug-010) | PriceCalculator.isWeekendNight вважає вихідними суботу й неділю замість п'ятниці й суботи | Major | P3 | BL-30 | `PriceCalculatorTest.weekendNightIsFridayAndSaturday`, `nightPriceFormula`, `totalSumsNightsAcrossSeasonBoundary`, `longStayDiscountStartsAtSevenNights` | New |
-| [BUG-011](#bug-011) | PriceCalculator.nightPrice округлює вниз (DOWN) замість HALF_UP | Minor | P3 | BL-50 | `PriceCalculatorTest.nightPriceIsRoundedHalfUp` | New |
-| [BUG-014](#bug-014) | Availability.cancellationFee утримує 50 % вартості за рівно 7 днів до заїзду замість безкоштовного скасування | Major | P3 | BL-60 | `AvailabilityTest.cancellationFeeAtBoundaries`, `refundAtBoundaries` | New |
-| [BUG-015](#bug-015) | Availability.isAvailable вважає номер зайнятим, коли виїзд одного гостя збігається із заїздом іншого | Major | P3 | BL-70 | `AvailabilityTest.isAvailableForIntervals`, `bookingFreeRoomIsRegistered` | New |
+| [BUG-008](#bug-008) | BookingValidator.validate відхиляє бронювання рівно на 30 ночей | Normal | P3 | BL-10 | `BookingValidatorTest.nightsOutsideOneToThirtyAreRejected` | Closed (verified) |
+| [BUG-009](#bug-009) | BookingValidator.validate приймає дату заїзду, ранішу за today | Major | P3 | BL-10 | `BookingValidatorTest.checkInBeforeTodayIsRejected` | Reopened |
+| [BUG-010](#bug-010) | PriceCalculator.isWeekendNight вважає вихідними суботу й неділю замість п'ятниці й суботи | Major | P3 | BL-30 | `PriceCalculatorTest.weekendNightIsFridayAndSaturday`, `nightPriceFormula`, `totalSumsNightsAcrossSeasonBoundary`, `longStayDiscountStartsAtSevenNights` | Closed (verified) |
+| [BUG-011](#bug-011) | PriceCalculator.nightPrice округлює вниз (DOWN) замість HALF_UP | Minor | P3 | BL-50 | `PriceCalculatorTest.nightPriceIsRoundedHalfUp` | Closed (verified) |
+| [BUG-014](#bug-014) | Availability.cancellationFee утримує 50 % вартості за рівно 7 днів до заїзду замість безкоштовного скасування | Major | P3 | BL-60 | `AvailabilityTest.cancellationFeeAtBoundaries`, `refundAtBoundaries` | Reopened |
+| [BUG-015](#bug-015) | Availability.isAvailable вважає номер зайнятим, коли виїзд одного гостя збігається із заїздом іншого | Major | P3 | BL-70 | `AvailabilityTest.isAvailableForIntervals`, `bookingFreeRoomIsRegistered` | Closed (verified) |
 
 ---
 
@@ -19,7 +19,7 @@
 
 **Title:** BookingValidator.validate відхиляє бронювання рівно на 30 ночей (NIGHTS_OUT_OF_RANGE)
 
-**Bug ID:** BUG-008 **Мітка:** module **Reporter:** Мукоїд Е. **Date:** 08.11.2026 **Reviewer:** Дятлов М., 11.11.2026 **Status:** New
+**Bug ID:** BUG-008 **Мітка:** module **Reporter:** Мукоїд Е. **Date:** 08.11.2026 **Reviewer:** Дятлов М., 11.11.2026 **Status:** Closed (verified) (підтверджено на v2, 16.11.2026, Мукоїд Е.; затверджено КТ (PR #24); див. docs/sprint5/defect-verification.md)
 **Severity:** Normal **Priority:** P3
 **Linked:** requirement BL-10; test `BookingValidatorTest.nightsOutsideOneToThirtyAreRejected` (набір [2] «30, false»)
 
@@ -49,7 +49,7 @@ Severity Normal (4.12): бронювання можливе, але не на в
 
 **Title:** BookingValidator.validate приймає дату заїзду, ранішу за today (немає CHECK_IN_IN_PAST)
 
-**Bug ID:** BUG-009 **Мітка:** module **Reporter:** Мукоїд Е. **Date:** 08.11.2026 **Reviewer:** Дятлов М., 11.11.2026 **Status:** New
+**Bug ID:** BUG-009 **Мітка:** module **Reporter:** Мукоїд Е. **Date:** 08.11.2026 **Reviewer:** Дятлов М., 11.11.2026 **Status:** Reopened (підтверджено на v2, 16.11.2026, Мукоїд Е.; затверджено КТ (PR #24); див. docs/sprint5/defect-verification.md)
 **Severity:** Major **Priority:** P3
 **Linked:** requirement BL-10; test `BookingValidatorTest.checkInBeforeTodayIsRejected` (набір [1] «2026-11-09, true»)
 
@@ -79,7 +79,7 @@ Severity Major (4.12): система приймає некоректне бро
 
 **Title:** PriceCalculator.isWeekendNight вважає вихідними суботу й неділю замість п'ятниці й суботи (зсув на день)
 
-**Bug ID:** BUG-010 **Мітка:** module **Reporter:** Андрущенко К. **Date:** 10.11.2026 **Reviewer:** Мукоїд Е., 11.11.2026 **Status:** New
+**Bug ID:** BUG-010 **Мітка:** module **Reporter:** Андрущенко К. **Date:** 10.11.2026 **Reviewer:** Мукоїд Е., 11.11.2026 **Status:** Closed (verified) (підтверджено на v2, 16.11.2026, Мукоїд Е.; затверджено КТ (PR #24); див. docs/sprint5/defect-verification.md)
 **Severity:** Major **Priority:** P3
 **Linked:** requirement BL-30; tests `PriceCalculatorTest.weekendNightIsFridayAndSaturday` (набори [2] «2026-11-13, true», [4] «2026-11-15, false»), `nightPriceFormula` (набір [2]), `totalSumsNightsAcrossSeasonBoundary`, `longStayDiscountStartsAtSevenNights` (частина «6 ночей»)
 
@@ -115,7 +115,7 @@ Severity Major (4.12): помилка в ключовій формулі цін�
 
 **Title:** PriceCalculator.nightPrice округлює вартість ночі вниз (DOWN) замість HALF_UP
 
-**Bug ID:** BUG-011 **Мітка:** module **Reporter:** Андрущенко К. **Date:** 10.11.2026 **Reviewer:** Мукоїд Е., 11.11.2026 **Status:** New
+**Bug ID:** BUG-011 **Мітка:** module **Reporter:** Андрущенко К. **Date:** 10.11.2026 **Reviewer:** Мукоїд Е., 11.11.2026 **Status:** Closed (verified) (підтверджено на v2, 16.11.2026, Мукоїд Е.; затверджено КТ (PR #24); див. docs/sprint5/defect-verification.md)
 **Severity:** Minor **Priority:** P3
 **Linked:** requirement BL-50; test `PriceCalculatorTest.nightPriceIsRoundedHalfUp`
 
@@ -146,7 +146,7 @@ Severity Minor (4.12): розходження в копійках, функці�
 
 **Title:** Availability.cancellationFee утримує 50 % вартості за рівно 7 днів до заїзду замість безкоштовного скасування
 
-**Bug ID:** BUG-014 **Мітка:** module **Reporter:** Дятлов М. **Date:** 11.11.2026 **Reviewer:** Андрущенко К., 12.11.2026 **Status:** New
+**Bug ID:** BUG-014 **Мітка:** module **Reporter:** Дятлов М. **Date:** 11.11.2026 **Reviewer:** Андрущенко К., 12.11.2026 **Status:** Reopened (підтверджено на v2, 16.11.2026, Мукоїд Е.; затверджено КТ (PR #24); див. docs/sprint5/defect-verification.md)
 **Severity:** Major **Priority:** P3
 **Linked:** requirement BL-60; тести `AvailabilityTest.cancellationFeeAtBoundaries` (набір [2] «7, 0.00»), `AvailabilityTest.refundAtBoundaries` (набір [1] «7, 1000.00»)
 
@@ -177,7 +177,7 @@ Severity Major (4.12): гість, який скасовує бронюванн�
 
 **Title:** Availability.isAvailable вважає номер зайнятим, коли виїзд одного гостя збігається із заїздом іншого (book кидає IllegalStateException)
 
-**Bug ID:** BUG-015 **Мітка:** module **Reporter:** Дятлов М. **Date:** 11.11.2026 **Reviewer:** Андрущенко К., 12.11.2026 **Status:** New
+**Bug ID:** BUG-015 **Мітка:** module **Reporter:** Дятлов М. **Date:** 11.11.2026 **Reviewer:** Андрущенко К., 12.11.2026 **Status:** Closed (verified) (підтверджено на v2, 16.11.2026, Мукоїд Е.; затверджено КТ (PR #24); див. docs/sprint5/defect-verification.md)
 **Severity:** Major **Priority:** P3
 **Linked:** requirement BL-70; тести `AvailabilityTest.isAvailableForIntervals` (набори [1] «2026-12-15 → 2026-12-17» і [2] «2026-12-08 → 2026-12-10»), `AvailabilityTest.bookingFreeRoomIsRegistered`
 
